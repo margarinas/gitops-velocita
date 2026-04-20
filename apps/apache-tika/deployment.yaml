@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-tika
+  namespace: default
+  labels:
+    app.kubernetes.io/name: apache-tika
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: apache-tika
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: apache-tika
+    spec:
+      containers:
+        - name: apache-tika
+          image: "apache/tika:latest"
+          imagePullPolicy: IfNotPresent
+          
+          ports:
+            - name: http
+              containerPort: 9998
+              protocol: TCP
+          
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi

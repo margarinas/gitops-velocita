@@ -34,10 +34,10 @@ spec:
       interval: 10m
   values:
     unsafeFlags:
-#      tls: false
+      #      tls: false
       pxcSize: true
       proxySize: true
-#      backupIfUnhealthy: false
+    #      backupIfUnhealthy: false
     upgradeOptions:
       apply: Recommended
     pxc:
@@ -55,26 +55,22 @@ spec:
         compress=lz4
     haproxy:
       size: 1
-    #            readinessProbes:
-    #                timeoutSeconds: 20
 
     backup:
-#      pitr:
-#        enabled: false
-#        storageName: r2-pitr
-#        timeBetweenUploads: 60
+
       storages:
-        r2:
+        storages:
+          backblaze:
             verifyTLS: false
             type: s3
             s3:
-                credentialsSecret: tenisonamai-staging-db-backup-r2
-                region: auto
-                endpointUrl: https://e7b7c5e4840be3179f6b94d23d3204d0.r2.cloudflarestorage.com
-                bucket: tenisonamai-staging-db-backup
+              credentialsSecret: velocita-db-backup-s3
+              region: eu-central-003
+              endpointUrl: https://s3.eu-central-003.backblazeb2.com
+              bucket: velocita-db-backup
 
       schedule:
         - name: "daily-backup"
           schedule: "0 0 * * *"
           keep: 5
-          storageName: r2
+          storageName: backblaze

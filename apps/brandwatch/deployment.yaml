@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brandwatch
+  namespace: default
+  labels:
+    helm.sh/chart: onechart-0.60.0
+    app.kubernetes.io/name: onechart
+    app.kubernetes.io/instance: brandwatch
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    kubectl.kubernetes.io/default-container: brandwatch
+    gimlet.io/git-sha: fd33176c0cb596e3c1282c10b101afc42d4ad67d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: onechart
+      app.kubernetes.io/instance: brandwatch
+  template:
+    metadata:
+      annotations:
+        checksum/config: 98927f8c5317a8b772468bf5beb8ade7a2b7d4289a9972db65445cb4bbede42d
+        gimlet.io/git-sha: fd33176c0cb596e3c1282c10b101afc42d4ad67d
+        gimlet.io/git-repository: margarinas/gitops-velocita-prod-apps
+      labels:
+        app.kubernetes.io/name: onechart
+        app.kubernetes.io/instance: brandwatch
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      securityContext:
+        fsGroup: 9999
+      initContainers:      
+      containers:
+        - name: brandwatch
+          securityContext: &securityContext
+            {}
+          image: "margarinas/brandwatch:latest"
+          imagePullPolicy: Always
+          envFrom: &envFrom
+            - configMapRef:
+                name: brandwatch
+            - secretRef:
+                name: brandwatch
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP

@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: brandwatch
+  namespace: default
+  labels:
+    app.kubernetes.io/name: brandwatch
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - "brandwatch.velocita.lt"
+      secretName: tls-brandwatch
+  rules:
+    - host: "brandwatch.velocita.lt"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: brandwatch
+                port:
+                  number: 80
