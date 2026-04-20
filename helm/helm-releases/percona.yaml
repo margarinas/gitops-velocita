@@ -60,7 +60,7 @@ spec:
 
       storages:
         backblaze:
-          verifyTLS: false
+#          verifyTLS: false
           type: s3
           s3:
             credentialsSecret: velocita-db-backup-s3
