@@ -24,7 +24,7 @@ data:
   CACHE_DRIVER: "redis"
   DB_CONNECTION: "mysql"
   DB_DATABASE: "velocita-db"
-  DB_HOST: "pxc-db-haproxy.infrastructure.svc.cluster.local"
+  DB_HOST: "pxc-db-haproxy.default"
   DB_PORT: "3306"
   DB_USERNAME: "velocita-db-user"
   GOOGLE_PROJECT_ID: "expanded-lock-279422"
