@@ -6,8 +6,6 @@ metadata:
 spec:
   interval: 24h0m0s
   path: ./helm
-  dependsOn:
-    - name: infrastructure
   prune: true
   sourceRef:
     kind: GitRepository

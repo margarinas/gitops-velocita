@@ -6,8 +6,6 @@ metadata:
 spec:
   interval: 1h0m0s
   path: ./apps/velocita
-  dependsOn:
-    - name: infrastructure
   prune: true
   sourceRef:
     kind: GitRepository

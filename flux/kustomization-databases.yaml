@@ -7,8 +7,6 @@ spec:
   interval: 24h0m0s
   path: ./databases
   prune: true
-  dependsOn:
-    - name: helm
   sourceRef:
     kind: GitRepository
     name: flux-system

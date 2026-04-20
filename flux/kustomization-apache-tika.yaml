@@ -6,8 +6,6 @@ metadata:
 spec:
   interval: 24h0m0s
   path: ./apps/apache-tika
-  dependsOn:
-    - name: infrastructure
   prune: true
   sourceRef:
     kind: GitRepository
