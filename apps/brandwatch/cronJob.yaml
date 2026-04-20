@@ -1,0 +1,39 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: brandwatch-cron
+  namespace: default
+  labels:
+    app.kubernetes.io/name: brandwatch-cron
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: regcred
+          restartPolicy: Never
+          containers:
+            - name: brandwatch-cron
+              image: "margarinas/brandwatch:latest"
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - "php artisan schedule:run"
+              envFrom:
+                - secretRef:
+                    name: brandwatch
+                    optional: false
+                - configMapRef:
+                    name: brandwatch
+                    optional: false
+              
+              resources:
+                {}

@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brandwatch-horizon
+  namespace: default
+  labels:
+
+    app.kubernetes.io/name: brandwatch-horizon
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: brandwatch-horizon
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: brandwatch-horizon
+    spec:
+      imagePullSecrets:
+        - name: regcred
+
+      containers:
+        - name: brandwatch-horizon
+
+          image: "margarinas/brandwatch:latest"
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - "php artisan horizon"
+          envFrom:
+            - secretRef:
+                name: brandwatch
+                optional: false
+            - configMapRef:
+                name: brandwatch
+                optional: false
+
+
+
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app.kubernetes.io/instance"
+                    operator: In
+                    values:
+                      - brandwatch-horizon
+              topologyKey: "kubernetes.io/hostname"
