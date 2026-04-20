@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meilisearch
+  namespace: default
+  labels:
+
+    app.kubernetes.io/instance: meilisearch
+  annotations:
+    kubectl.kubernetes.io/default-container: meilisearch
+    gimlet.io/git-sha: 9e4e7dec0607737fffee022afe6c2a2e82c94645
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: onechart
+      app.kubernetes.io/instance: meilisearch
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/config: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        gimlet.io/git-sha: 9e4e7dec0607737fffee022afe6c2a2e82c94645
+        gimlet.io/git-repository: margarinas/gitops-velocita-prod-apps
+      labels:
+        app.kubernetes.io/name: onechart
+        app.kubernetes.io/instance: meilisearch
+    spec:
+      securityContext:
+        fsGroup: 999
+      initContainers:      
+      containers:
+        - name: meilisearch
+          securityContext: &securityContext
+            {}
+          image: "getmeili/meilisearch:v1.7"
+          imagePullPolicy: IfNotPresent
+          
+          ports:
+            - name: http
+              containerPort: 7700
+              protocol: TCP
+          volumeMounts: &volumeMounts
+            - name: meilisearch
+              mountPath: /meili_data
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+      volumes:
+        - name: meilisearch
+          persistentVolumeClaim:
+            claimName: meilisearch-meilisearch

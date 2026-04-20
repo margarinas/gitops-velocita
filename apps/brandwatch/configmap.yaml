@@ -25,7 +25,7 @@ data:
   MAIL_USERNAME: "linas@velocita.lt"
   MEILISEARCH_HOST: "http://meilisearch:7700"
   QUEUE_CONNECTION: "redis"
-  REDIS_HOST: "redis-master.infrastructure"
+  REDIS_HOST: "dragonfly.default"
   REDIS_PORT: "6379"
   SCOUT_DRIVER: "meilisearch"
   SCOUT_QUEUE: "true"

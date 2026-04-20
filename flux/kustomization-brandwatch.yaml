@@ -4,7 +4,7 @@ metadata:
   name: brandwatch
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1h0m0s
   path: ./apps/brandwatch
   dependsOn:
     - name: infrastructure
