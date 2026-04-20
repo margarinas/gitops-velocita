@@ -1,0 +1,30 @@
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  labels:
+    app.kubernetes.io/name: dragonfly
+    app.kubernetes.io/instance: dragonfly
+    app.kubernetes.io/part-of: dragonfly-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: dragonfly-operator
+  name: dragonfly
+  namespace: default
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - dragonfly
+        topologyKey: kubernetes.io/hostname
+  replicas: 2
+  resources:
+    requests:
+      cpu: 100m
+      memory: 500Mi
+    limits:
+      cpu: 500m
+      memory: 750Mi
