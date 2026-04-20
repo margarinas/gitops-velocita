@@ -51,7 +51,7 @@ data:
   PHP_MEMORY_LIMIT: "512M"
   PHP_POOL_NAME: "velocita_php"
   QUEUE_CONNECTION: "redis"
-  REDIS_HOST: "redis-master.infrastructure"
+  REDIS_HOST: "dragonfly.default"
   REDIS_PORT: "6379"
   SCOUT_DRIVER: "meilisearch"
   SCOUT_QUEUE: "true"
