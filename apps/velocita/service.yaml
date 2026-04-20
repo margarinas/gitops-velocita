@@ -2,11 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: brandwatch
+  name: velocita
   namespace: default
   labels:
-    app.kubernetes.io/name: brandwatch
-
+    app.kubernetes.io/name: velocita
 spec:
   type: ClusterIP
   ports:
@@ -15,4 +14,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: brandwatch
+    app.kubernetes.io/name: velocita

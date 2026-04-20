@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: velocita
+  namespace: default
+  labels:
+    app.kubernetes.io/name: velocita
+  annotations:
+    kubectl.kubernetes.io/default-container: velocita
+    gimlet.io/git-sha: 65b7a47a5e7d987ce5b3560c663344f0fd97d5df
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: velocita
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: velocita
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      securityContext:
+        fsGroup: 9999
+      initContainers:      
+      containers:
+        - name: velocita
+          securityContext: &securityContext
+            {}
+          image: "margarinas/velocita:latest"
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: velocita
+            - secretRef:
+                name: velocita
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: google-account-key
+              mountPath: /var/www/html/storage/google-account-key 
+              readOnly: true
+      volumes:
+        - name: google-account-key
+          secret:
+            secretName: velocita-google-account-key

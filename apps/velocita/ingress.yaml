@@ -2,26 +2,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: brandwatch
+  name: velocita
   namespace: default
   labels:
-    app.kubernetes.io/name: brandwatch
+    app.kubernetes.io/name: velocita
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/affinity: cookie
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - "brandwatch.velocita.lt"
-      secretName: tls-brandwatch
+        - "velocita.motorsniper.lt"
+      secretName: tls-velocita
   rules:
-    - host: "brandwatch.velocita.lt"
+    - host: "velocita.motorsniper.lt"
       http:
         paths:
           - path: "/"
             pathType: "Prefix"
             backend:
               service:
-                name: brandwatch
+                name: velocita
                 port:
-                  number: 8080
+                  number: 80
