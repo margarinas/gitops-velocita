@@ -8,7 +8,7 @@ spec:
   path: ./databases
   prune: true
   dependsOn:
-    - name: infrastructure
+    - name: helm
   sourceRef:
     kind: GitRepository
     name: flux-system
