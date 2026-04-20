@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readability
+  namespace: default
+  labels:
+    app.kubernetes.io/name: readability
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: readability
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: readability
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: readability
+          image: "margarinas/readability:latest"
+          imagePullPolicy: Always
+          
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+      
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app.kubernetes.io/instance"
+                    operator: In
+                    values:
+                      - readability
+              topologyKey: "kubernetes.io/hostname"
