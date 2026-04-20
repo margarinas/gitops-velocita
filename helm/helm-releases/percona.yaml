@@ -1,0 +1,80 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pxc-operator
+  namespace: default
+spec:
+  interval: 60m
+  releaseName: pxc-operator
+  chart:
+    spec:
+      chart: pxc-operator
+      sourceRef:
+        kind: HelmRepository
+        name: percona
+      interval: 10m
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pxc-db
+  namespace: default
+spec:
+  interval: 60m
+  releaseName: pxc-db
+  dependsOn:
+    - name: pxc-operator
+  chart:
+    spec:
+      chart: pxc-db
+      sourceRef:
+        kind: HelmRepository
+        name: percona
+      interval: 10m
+  values:
+    unsafeFlags:
+#      tls: false
+      pxcSize: true
+      proxySize: true
+#      backupIfUnhealthy: false
+    upgradeOptions:
+      apply: Recommended
+    pxc:
+      size: 1
+      persistence:
+        size: 30Gi
+        storageClass: "local-path"
+      #            readinessDelaySec: 30
+      configuration: |
+        [mysqld]
+        sort_buffer_size = 4M
+        [sst]
+        xbstream-opts=--decompress
+        [xtrabackup]
+        compress=lz4
+    haproxy:
+      size: 1
+    #            readinessProbes:
+    #                timeoutSeconds: 20
+
+    backup:
+#      pitr:
+#        enabled: false
+#        storageName: r2-pitr
+#        timeBetweenUploads: 60
+      storages:
+        r2:
+            verifyTLS: false
+            type: s3
+            s3:
+                credentialsSecret: tenisonamai-staging-db-backup-r2
+                region: auto
+                endpointUrl: https://e7b7c5e4840be3179f6b94d23d3204d0.r2.cloudflarestorage.com
+                bucket: tenisonamai-staging-db-backup
+
+      schedule:
+        - name: "daily-backup"
+          schedule: "0 0 * * *"
+          keep: 5
+          storageName: r2
