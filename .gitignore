@@ -1,5 +1,6 @@
 /master.key
-/secrets.yaml
+/**/secrets.yaml
+/**/fileSecrets.yaml
 terraform.tfvars
 .terraform
 k3s_kustomization_backup.yaml
