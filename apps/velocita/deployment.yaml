@@ -6,9 +6,6 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: velocita
-  annotations:
-    kubectl.kubernetes.io/default-container: velocita
-    gimlet.io/git-sha: 65b7a47a5e7d987ce5b3560c663344f0fd97d5df
 spec:
   replicas: 1
   selector:
@@ -21,13 +18,9 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      securityContext:
-        fsGroup: 9999
-      initContainers:      
+
       containers:
         - name: velocita
-          securityContext: &securityContext
-            {}
           image: "margarinas/velocita:latest"
           imagePullPolicy: Always
           envFrom:
@@ -37,7 +30,7 @@ spec:
                 name: velocita
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           volumeMounts:
             - name: google-account-key
