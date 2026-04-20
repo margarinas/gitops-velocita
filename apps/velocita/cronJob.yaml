@@ -1,0 +1,36 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: velocita-cron
+  namespace: default
+  labels:
+    app.kubernetes.io/name: velocita-cron
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: regcred
+          restartPolicy: Never
+          containers:
+            - name: velocita-cron
+              image: "margarinas/velocita:latest"
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - "php artisan schedule:run"
+              envFrom:
+                - secretRef:
+                    name: velocita
+                    optional: false
+                - configMapRef:
+                    name: velocita
+                    optional: false

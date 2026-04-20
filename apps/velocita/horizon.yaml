@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: velocita-horizon
+  namespace: default
+  labels:
+    app.kubernetes.io/name: velocita-horizon
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: velocita-horizon
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: velocita-horizon
+    spec:
+      imagePullSecrets:
+        - name: regcred
+
+      containers:
+        - name: velocita-horizon
+
+          image: "margarinas/velocita:latest"
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - "php artisan horizon"
+          envFrom:
+            - secretRef:
+                name: velocita
+                optional: false
+            - configMapRef:
+                name: velocita
+                optional: false
+          volumeMounts:
+            - name: velocita-google-account-key
+              mountPath: /var/www/html/storage/google-account-key
+              readOnly: true
+
+      volumes:
+        - name: velocita-google-account-key
+          secret:
+            secretName: velocita-google-account-key
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app.kubernetes.io/instance"
+                    operator: In
+                    values:
+                      - velocita-horizon
+              topologyKey: "kubernetes.io/hostname"
