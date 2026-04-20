@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: meilisearch
+  namespace: default
+spec:
+  interval: 60m
+  releaseName: meilisearch
+  chart:
+    spec:
+      chart: meilisearch
+      sourceRef:
+        kind: HelmRepository
+        name: meilisearch
+      interval: 10m
+  values:
+    persistence:
+      enabled: true
+      storageClass: "local-path"
