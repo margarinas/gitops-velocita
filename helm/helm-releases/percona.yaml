@@ -56,20 +56,20 @@ spec:
     haproxy:
       size: 1
 
-#    backup:
-#
-#      storages:
-#        backblaze:
-##          verifyTLS: false
-#          type: s3
-#          s3:
-#            credentialsSecret: velocita-db-backup-s3
-#            region: eu-central-003
-#            endpointUrl: https://s3.eu-central-003.backblazeb2.com
-#            bucket: velocita-db-backup
-#
-#      schedule:
-#        - name: "daily-backup"
-#          schedule: "0 0 * * *"
-#          keep: 5
-#          storageName: backblaze
+    backup:
+
+      storages:
+        backblaze:
+#          verifyTLS: false
+          type: s3
+          s3:
+            credentialsSecret: velocita-db-backup-s3
+            region: eu-central-003
+            endpointUrl: https://s3.eu-central-003.backblazeb2.com
+            bucket: velocita-db-backup
+
+      schedule:
+        - name: "daily-backup"
+          schedule: "0 0 * * *"
+          keep: 5
+          storageName: backblaze
