@@ -26,7 +26,8 @@ spec:
           volumeMounts:
             - mountPath: "/app/data"
               name: article-service-data
-            - mountPath: "/app/article-service-google-account"
+            - mountPath: "/app/credentials.json"
+              subPath: credentials.json
               readOnly: true
               name: article-service-google-account
 
