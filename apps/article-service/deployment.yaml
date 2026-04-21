@@ -24,7 +24,7 @@ spec:
           image: "ghcr.io/nerijus-lgtm/article_service:sha-4359b6b"
           imagePullPolicy: Always
           volumeMounts:
-            - mountPath: "/static"
+            - mountPath: "/app/app/static"
               name: article-service-data
 
           ports:
