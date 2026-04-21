@@ -26,6 +26,8 @@ spec:
           volumeMounts:
             - mountPath: "/app/data"
               name: article-service-data
+            - mountPath: "/app"
+              name: article-service-google-account
 
           ports:
             - name: http
@@ -41,5 +43,8 @@ spec:
         - name: article-service-data
           persistentVolumeClaim:
             claimName: article-service-data
+        - name: article-service-google-account
+          secret:
+            secretName: article-service-google-account
       
 
