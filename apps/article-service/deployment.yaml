@@ -26,7 +26,8 @@ spec:
           volumeMounts:
             - mountPath: "/app/data"
               name: article-service-data
-            - mountPath: "/app"
+            - mountPath: "/app/article-service-google-account"
+              readOnly: true
               name: article-service-google-account
 
           ports:
