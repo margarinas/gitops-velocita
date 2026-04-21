@@ -18,11 +18,15 @@ spec:
     spec:
       imagePullSecrets:
         - name: ghcr-docker-pull
+
       containers:
         - name: article-service
           image: "ghcr.io/nerijus-lgtm/article_service:sha-4359b6b"
           imagePullPolicy: Always
-          
+          volumeMounts:
+            - mountPath: "/app/static"
+              name: article-service-data
+
           ports:
             - name: http
               containerPort: 80
@@ -32,5 +36,10 @@ spec:
             requests:
               cpu: 200m
               memory: 200Mi
+
+      volumes:
+        - name: article-service-data
+          persistentVolumeClaim:
+            claimName: article-service-data
       
 
