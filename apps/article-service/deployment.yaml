@@ -21,7 +21,7 @@ spec:
 
       containers:
         - name: article-service
-          image: "ghcr.io/nerijus-lgtm/article_service:sha-f7495fd"
+          image: "ghcr.io/nerijus-lgtm/article_service:sha-f7495fd" # {"$imagepolicy": "default:article-service"}
           imagePullPolicy: Always
           volumeMounts:
             - mountPath: "/app/data"
@@ -49,4 +49,3 @@ spec:
           secret:
             secretName: article-service-google-account
       
-

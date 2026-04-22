@@ -1,0 +1,53 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: article-service
+  namespace: default
+spec:
+  image: ghcr.io/nerijus-lgtm/article_service
+  interval: 5m0s
+  secretRef:
+    name: ghcr-docker-pull
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: article-service
+  namespace: default
+spec:
+  imageRepositoryRef:
+    name: article-service
+  filterTags:
+    pattern: "^sha-(?P<sha>[a-f0-9]{7,40})$"
+    extract: "$sha"
+  policy:
+    alphabetical:
+      order: desc
+  digestReflectionPolicy: Always
+  interval: 5m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: article-service
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    checkout:
+      ref:
+        branch: master
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: "chore(article-service): update image {{range .Updated.Images}}{{println .}}{{end}}"
+    push:
+      branch: master
+  update:
+    path: ./apps/article-service
+    strategy: Setters
