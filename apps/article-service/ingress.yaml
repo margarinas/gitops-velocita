@@ -12,10 +12,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - "article-service.motorsniper.lt"
+        - "news.velocita.lt"
       secretName: tls-article-service
   rules:
-    - host: "article-service.motorsniper.lt"
+    - host: "news.velocita.lt"
       http:
         paths:
           - path: "/"
