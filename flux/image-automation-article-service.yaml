@@ -19,11 +19,11 @@ spec:
   imageRepositoryRef:
     name: article-service
   filterTags:
-    pattern: '^sha-[a-fA-F0-9]+-(?P<ts>.*)'
+    pattern: '^sha-[a-fA-F0-9]+-(?P<ts>[0-9]+)$'
     extract: '$ts'
   policy:
-    alphabetical:
-      order: desc
+    numerical:
+      order: asc
   digestReflectionPolicy: Always
   interval: 5m0s
 ---
