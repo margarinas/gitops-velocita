@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/nerijus-lgtm/article_service
-  interval: 5m0s
+  interval: 1m0s
   secretRef:
     name: ghcr-docker-pull
 ---
@@ -25,7 +25,7 @@ spec:
     numerical:
       order: asc
   digestReflectionPolicy: Always
-  interval: 5m0s
+  interval: 1m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageUpdateAutomation
@@ -33,7 +33,7 @@ metadata:
   name: article-service
   namespace: flux-system
 spec:
-  interval: 5m0s
+  interval: 1m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
