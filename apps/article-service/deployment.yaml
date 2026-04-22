@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,10 +17,9 @@ spec:
     spec:
       imagePullSecrets:
         - name: ghcr-docker-pull
-
       containers:
         - name: article-service
-          image: ghcr.io/nerijus-lgtm/article_service:sha-2455365 # {"$imagepolicy": "flux-system:article-service"}
+          image: ghcr.io/nerijus-lgtm/article_service:sha-965de9b-1776879007@sha256:27735bffc3c26299080018c1ca490dcaf9aa3f2eb10cec6dfb2a2b1abbd85866 # {"$imagepolicy": "flux-system:article-service"}
           imagePullPolicy: Always
           volumeMounts:
             - mountPath: "/app/data"
@@ -30,17 +28,14 @@ spec:
               subPath: credentials.json
               readOnly: true
               name: article-service-google-account
-
           ports:
             - name: http
               containerPort: 8000
               protocol: TCP
-          
           resources:
             requests:
               cpu: 200m
               memory: 200Mi
-
       volumes:
         - name: article-service-data
           persistentVolumeClaim:
@@ -48,4 +43,3 @@ spec:
         - name: article-service-google-account
           secret:
             secretName: article-service-google-account
-      
