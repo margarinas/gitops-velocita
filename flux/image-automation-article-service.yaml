@@ -22,7 +22,7 @@ spec:
     pattern: '^sha-[a-fA-F0-9]+-(?P<ts>.*)'
     extract: '$ts'
   policy:
-    alphabetical:
+    numerical:
       order: desc
   digestReflectionPolicy: Always
   interval: 5m0s
