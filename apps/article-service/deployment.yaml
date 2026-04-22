@@ -19,7 +19,7 @@ spec:
         - name: ghcr-docker-pull
       containers:
         - name: article-service
-          image: ghcr.io/nerijus-lgtm/article_service:sha-965de9b-1776879007@sha256:27735bffc3c26299080018c1ca490dcaf9aa3f2eb10cec6dfb2a2b1abbd85866 # {"$imagepolicy": "flux-system:article-service"}
+          image: ghcr.io/nerijus-lgtm/article_service:sha-ab16641-1776880275@sha256:96b7c8564a8821531b9bfbb12bb7fb58f6837f61306a6b863db10b1aff2e49f0 # {"$imagepolicy": "flux-system:article-service"}
           imagePullPolicy: Always
           volumeMounts:
             - mountPath: "/app/data"
