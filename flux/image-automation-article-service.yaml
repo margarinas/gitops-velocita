@@ -19,12 +19,12 @@ spec:
   imageRepositoryRef:
     name: article-service
   filterTags:
-    pattern: "^sha-(?P<sha>[a-f0-9]{7,40})$"
-    extract: "$sha"
+    pattern: '^sha-[a-fA-F0-9]+-(?P<ts>.*)'
+    extract: '$ts'
   policy:
-    alphabetical:
+    numerical:
       order: desc
-  digestReflectionPolicy: Always
+#  digestReflectionPolicy: Always
   interval: 5m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
