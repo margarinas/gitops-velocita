@@ -21,7 +21,7 @@ spec:
 
       containers:
         - name: article-service
-          image: "ghcr.io/nerijus-lgtm/article_service:sha-f7495fd" # {"$imagepolicy": "default:article-service"}
+          image: "ghcr.io/nerijus-lgtm/article_service:sha-2455365" # {"$imagepolicy": "default:article-service"}
           imagePullPolicy: Always
           volumeMounts:
             - mountPath: "/app/data"
