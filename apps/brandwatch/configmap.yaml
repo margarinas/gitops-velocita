@@ -32,3 +32,5 @@ data:
   SESSION_DRIVER: "database"
   SESSION_LIFETIME: "120"
   SSL_MODE: "off"
+  PHP_OPCACHE_ENABLE: "1"
+
