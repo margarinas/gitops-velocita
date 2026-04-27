@@ -56,8 +56,6 @@ spec:
           volumeMounts:
             - name: docker-graph
               mountPath: /var/lib/docker
-            - name: runner-data
-              mountPath: /data
       volumes:
         - name: runner-config
           configMap:

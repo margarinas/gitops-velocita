@@ -23,7 +23,7 @@ data:
 
     container:
       docker_host: tcp://127.0.0.1:2375
-      options: --add-host=dind.docker.internal:host-gateway -v /data/buildx-cache:/data/buildx-cache
+      options: --add-host=dind.docker.internal:host-gateway
       privileged: true
 
     host:
