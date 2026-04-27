@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forgejo-runner
+  namespace: default
+  labels:
+    app.kubernetes.io/name: forgejo-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: forgejo-runner
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: forgejo-runner
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: runner
+          image: data.forgejo.org/forgejo/runner:12
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - |
+              sed "s|__RUNNER_SECRET__|${RUNNER_SECRET}|g" /etc/forgejo-runner/config.yml > /data/config.yml
+              sleep 10
+              forgejo-runner daemon --config /data/config.yml
+          env:
+            - name: DOCKER_HOST
+              value: tcp://127.0.0.1:2375
+            - name: RUNNER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: forgejo
+                  key: RUNNER_SECRET
+          volumeMounts:
+            - name: runner-config
+              mountPath: /etc/forgejo-runner
+              readOnly: true
+            - name: runner-data
+              mountPath: /data
+        - name: docker
+          image: docker:27-dind
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          args:
+            - dockerd
+            - -H
+            - tcp://0.0.0.0:2375
+            - --tls=false
+          volumeMounts:
+            - name: docker-graph
+              mountPath: /var/lib/docker
+      volumes:
+        - name: runner-config
+          configMap:
+            name: forgejo-runner-config
+        - name: runner-data
+          persistentVolumeClaim:
+            claimName: forgejo-runner-data
+        - name: docker-graph
+          emptyDir: {}

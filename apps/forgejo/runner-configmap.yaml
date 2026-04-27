@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: forgejo-runner-config
+  namespace: default
+data:
+  config.yml: |
+    log:
+      level: info
+
+    runner:
+      capacity: 1
+      envs:
+        DOCKER_HOST: tcp://dind.docker.internal:2375
+      labels:
+        - docker:docker://node:20-bookworm
+        - ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04
+
+    cache:
+      enabled: true
+      dir: /data/.cache
+
+    container:
+      docker_host: tcp://127.0.0.1:2375
+      options: --add-host=dind.docker.internal:host-gateway
+      privileged: true
+
+    host:
+      workdir_parent: /data/work
+
+    server:
+      connections:
+        forgejo:
+          url: https://git.motorsniper.lt/
+          uuid: 35313630-6261-6165-3031-306237363966
+          token: __RUNNER_SECRET__
