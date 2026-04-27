@@ -46,22 +46,6 @@ spec:
           hosts:
             - git.motorsniper.lt
 
-    extraVolumes:
-      - name: forgejo-secret
-        secret:
-          secretName: forgejo
-    extraVolumeMounts:
-      - name: forgejo-secret
-        mountPath: /etc/forgejo-secret
-        readOnly: true
-
-    initPreScript: |
-      RUNNER_SECRET="$(cat /etc/forgejo-secret/RUNNER_SECRET)"
-      forgejo forgejo-cli actions register \
-        --name docker \
-        --secret "${RUNNER_SECRET}" \
-        --labels "docker:docker://node:20-bookworm,ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04" || true
-
     gitea:
       config:
         APP_NAME: "Forgejo"
@@ -84,6 +68,10 @@ spec:
           DOMAIN: git.motorsniper.lt
           ROOT_URL: https://git.motorsniper.lt/
           SSH_DOMAIN: git.motorsniper.lt
+        service:
+          DISABLE_REGISTRATION: true
+          ALLOW_ONLY_EXTERNAL_REGISTRATION: false
+          SHOW_REGISTRATION_BUTTON: false
         session:
           PROVIDER: redis
           PROVIDER_CONFIG: redis://dragonfly.default:6379/0
