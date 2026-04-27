@@ -60,8 +60,7 @@ spec:
       forgejo forgejo-cli actions register \
         --name docker \
         --secret "${RUNNER_SECRET}" \
-        --labels "docker:docker://node:20-bookworm,ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04" \
-        --keep-labels || true
+        --labels "docker:docker://node:20-bookworm,ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04" || true
 
     gitea:
       config:
