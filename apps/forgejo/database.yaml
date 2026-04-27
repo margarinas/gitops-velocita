@@ -20,7 +20,7 @@ spec:
 apiVersion: mysql.sql.crossplane.io/v1alpha1
 kind: Grant
 metadata:
-  name: forgejo-grant-database
+  name: forgejo-db-grant
 spec:
   forProvider:
     privileges:
