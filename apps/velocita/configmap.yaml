@@ -18,7 +18,7 @@ data:
   AWS_DEFAULT_REGION: "eu-central-003"
   AWS_ENDPOINT: "https://s3.eu-central-003.backblazeb2.com"
   AWS_URL: "https://f003.backblazeb2.com/file/velocita-storage"
-  BRANDWATCH_API_ENDPOINT: "http://brandwatch/api"
+  BRANDWATCH_API_ENDPOINT: "http://brandwatch:8080/api"
   BRANDWATCH_API_KEY: "1|AHAGDhdEWpUybRG4pT3kIUEEqt5PHQ7qZRJuVpwC"
   BROADCAST_DRIVER: "log"
   CACHE_DRIVER: "redis"

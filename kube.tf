@@ -956,6 +956,14 @@ module "kube-hetzner" {
       port        = "587",
       source_ips      = [] # Won't be used for this rule
       destination_ips  = ["0.0.0.0/0", "::/0"]
+    },
+    {
+      description = "Allow IMAP traffic",
+      direction   = "out",
+      protocol    = "tcp",
+      port        = "993",
+      source_ips      = [] # Won't be used for this rule
+      destination_ips  = ["0.0.0.0/0", "::/0"]
     }
   ]
 
