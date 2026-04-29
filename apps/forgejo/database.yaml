@@ -13,7 +13,7 @@ metadata:
 spec:
   forProvider:
     passwordSecretRef:
-      name: forgejo
+      name: forgejo-credentials
       namespace: default
       key: DB_PASSWORD
 ---

@@ -79,5 +79,5 @@ spec:
         - name: FORGEJO__DATABASE__PASSWD
           valueFrom:
             secretKeyRef:
-              name: forgejo
+              name: forgejo-credentials
               key: DB_PASSWORD

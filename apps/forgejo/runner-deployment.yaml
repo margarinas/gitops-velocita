@@ -35,7 +35,7 @@ spec:
             - name: RUNNER_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: forgejo
+                  name: forgejo-credentials
                   key: RUNNER_SECRET
           volumeMounts:
             - name: runner-config

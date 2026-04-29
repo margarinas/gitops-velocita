@@ -19,6 +19,12 @@ seal_env_file() {
     secret_name=$(basename "$dir_path")
     namespace="default"
 
+    case "$secret_name" in
+      forgejo)
+        secret_name="forgejo-credentials"
+        ;;
+    esac
+
     kubectl --context k3s -n "$namespace" create secret generic "$secret_name" \
       -o yaml --from-env-file "$env_file" --dry-run=client \
       | kubeseal --context k3s --controller-namespace=infrastructure -o yaml > "$dir_path"/sealedSecret.yaml
