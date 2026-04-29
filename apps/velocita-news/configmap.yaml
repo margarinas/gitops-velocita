@@ -25,4 +25,4 @@ data:
   SESSION_LIFETIME: "120"
   SSL_MODE: "off"
   PHP_OPCACHE_ENABLE: "1"
-
+  AUTORUN_ENABLED: "true"
