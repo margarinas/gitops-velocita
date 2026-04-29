@@ -27,7 +27,7 @@ spec:
 apiVersion: mysql.sql.crossplane.io/v1alpha1
 kind: Grant
 metadata:
-  name: brandwath-grant-database
+  name: velocita-news-grant-database
 spec:
   forProvider:
     privileges:
