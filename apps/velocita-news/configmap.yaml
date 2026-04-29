@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: velocita-news
+  namespace: default
+  labels:
+    app.kubernetes.io/name: velocita-news
+data:
+  APP_DEBUG: "true"
+  APP_NAME: "velocita-news"
+  APP_URL: "https://velocita-news.velocita.lt"
+  CACHE_DRIVER: "redis"
+  DB_CONNECTION: "mysql"
+  DB_DATABASE: "velocita-news-db"
+  DB_HOST: "pxc-db-haproxy.default"
+  DB_PORT: "3306"
+  DB_USERNAME: "velocita-news-db-user"
+
+  QUEUE_CONNECTION: "redis"
+  REDIS_HOST: "dragonfly.default"
+  REDIS_PORT: "6379"
+
+  SESSION_DRIVER: "redis"
+  SESSION_LIFETIME: "120"
+  SSL_MODE: "off"
+  PHP_OPCACHE_ENABLE: "1"
+

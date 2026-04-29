@@ -48,7 +48,6 @@ spec:
       #            readinessDelaySec: 30
       configuration: |
         [mysqld]
-        pxc_strict_mode=PERMISSIVE
         sort_buffer_size = 4M
         [sst]
         xbstream-opts=--decompress

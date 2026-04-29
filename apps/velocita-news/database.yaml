@@ -1,0 +1,42 @@
+apiVersion: mysql.sql.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  name: velocita-news-db
+spec:
+  forProvider: {}
+---
+apiVersion: mysql.sql.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: velocita-news-db-user
+spec:
+  forProvider:
+    passwordSecretRef:
+      name: velocita-news
+      namespace: default
+      key: DB_PASSWORD
+#    resourceOptions:
+#      maxQueriesPerHour: 1000
+#      maxUpdatesPerHour: 1000
+#      maxConnectionsPerHour: 100
+#      maxUserConnections: 10
+#  writeConnectionSecretToRef:
+#    name: example-connection-secret
+#    namespace: default
+---
+apiVersion: mysql.sql.crossplane.io/v1alpha1
+kind: Grant
+metadata:
+  name: brandwath-grant-database
+spec:
+  forProvider:
+    privileges:
+      - ALL PRIVILEGES
+#      - DROP
+#      - CREATE ROUTINE
+#      - EVENT
+    userRef:
+      name: velocita-news-db-user
+    databaseRef:
+      name: velocita-news-db
+
