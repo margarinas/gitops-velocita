@@ -9,7 +9,7 @@ metadata:
 data:
   APP_DEBUG: "true"
   APP_NAME: "velocita-news"
-  APP_URL: "https://velocita-news.motorsniper.lt"
+  APP_URL: "https://news.velocita.lt"
   APP_ENV: "production"
   APP_LOCALE: "lt"
   CACHE_DRIVER: "redis"
