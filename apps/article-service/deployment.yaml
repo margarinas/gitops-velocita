@@ -1,45 +1,45 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: article-service
-  namespace: default
-  labels:
-    app.kubernetes.io/name: article-service
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: article-service
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: article-service
-    spec:
-      imagePullSecrets:
-        - name: ghcr-docker-pull
-      containers:
-        - name: article-service
-          image: ghcr.io/nerijus-lgtm/article_service:sha-bfd8cf1-1776955679@sha256:dde44193ff1f0d152f1f0df7c2c38a95795396fdda000d1681c8931c3f28a633 # {"$imagepolicy": "flux-system:article-service"}
-          imagePullPolicy: Always
-          volumeMounts:
-            - mountPath: "/app/data"
-              name: article-service-data
-            - mountPath: "/app/credentials.json"
-              subPath: credentials.json
-              readOnly: true
-              name: article-service-google-account
-          ports:
-            - name: http
-              containerPort: 8000
-              protocol: TCP
-          resources:
-            requests:
-              cpu: 200m
-              memory: 200Mi
-      volumes:
-        - name: article-service-data
-          persistentVolumeClaim:
-            claimName: article-service-data
-        - name: article-service-google-account
-          secret:
-            secretName: article-service-google-account
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: article-service
+#  namespace: default
+#  labels:
+#    app.kubernetes.io/name: article-service
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app.kubernetes.io/name: article-service
+#  template:
+#    metadata:
+#      labels:
+#        app.kubernetes.io/name: article-service
+#    spec:
+#      imagePullSecrets:
+#        - name: ghcr-docker-pull
+#      containers:
+#        - name: article-service
+#          image: ghcr.io/nerijus-lgtm/article_service:sha-bfd8cf1-1776955679@sha256:dde44193ff1f0d152f1f0df7c2c38a95795396fdda000d1681c8931c3f28a633 # {"$imagepolicy": "flux-system:article-service"}
+#          imagePullPolicy: Always
+#          volumeMounts:
+#            - mountPath: "/app/data"
+#              name: article-service-data
+#            - mountPath: "/app/credentials.json"
+#              subPath: credentials.json
+#              readOnly: true
+#              name: article-service-google-account
+#          ports:
+#            - name: http
+#              containerPort: 8000
+#              protocol: TCP
+#          resources:
+#            requests:
+#              cpu: 200m
+#              memory: 200Mi
+#      volumes:
+#        - name: article-service-data
+#          persistentVolumeClaim:
+#            claimName: article-service-data
+#        - name: article-service-google-account
+#          secret:
+#            secretName: article-service-google-account
