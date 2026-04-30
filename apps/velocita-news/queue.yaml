@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: velocita-news-queue
+  namespace: default
+  labels:
+    app: velocita-news-queue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: velocita-news-queue
+  template:
+    metadata:
+      name: velocita-news-queue
+      labels:
+        app: velocita-news-queue
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: velocita-news
+        - secretRef:
+            name: velocita-news
+        image: margarinas/velocita-news:latest
+        imagePullPolicy: Always
+        name: velocita-news-queue
+        command:
+        - php
+        - /var/www/html/artisan
+        - queue:work
+        - --tries=3
+        - --max-jobs=500
+        - --memory=256
+
+        livenessProbe:
+          exec:
+            command: ["healthcheck-queue"]
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+      imagePullSecrets:
+      - name: regcred
