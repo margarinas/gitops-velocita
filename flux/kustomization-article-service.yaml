@@ -7,7 +7,6 @@ spec:
   interval: 1h0m0s
   path: ./apps/article-service
   prune: true
-  suspend: true
   sourceRef:
     kind: GitRepository
     name: flux-system
