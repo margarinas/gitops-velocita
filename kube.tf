@@ -214,10 +214,10 @@ module "kube-hetzner" {
     {
       name        = "agent-large",
       server_type = "cx33",
-      location    = "nbg1",
+      location    = "hel1",
       labels      = [],
       taints      = [],
-      count       = 0
+      count       = 1
       subnet_ip_range = "10.100.0.0/16"
 
       # Fine-grained control over placement groups (nodes in the same group are spread over different physical servers, 10 nodes per placement group max):
@@ -962,6 +962,14 @@ module "kube-hetzner" {
       direction   = "out",
       protocol    = "tcp",
       port        = "993",
+      source_ips      = [] # Won't be used for this rule
+      destination_ips  = ["0.0.0.0/0", "::/0"]
+    },
+    {
+      description = "Allow Proxy traffic",
+      direction   = "out",
+      protocol    = "tcp",
+      port        = "44190",
       source_ips      = [] # Won't be used for this rule
       destination_ips  = ["0.0.0.0/0", "::/0"]
     }
