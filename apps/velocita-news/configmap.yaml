@@ -10,7 +10,7 @@ data:
   APP_DEBUG: "true"
   APP_NAME: "velocita-news"
   APP_URL: "https://news.velocita.lt"
-  APP_ENV: "production"
+  APP_ENV: "development"
   APP_LOCALE: "lt"
   CACHE_DRIVER: "redis"
   DB_CONNECTION: "mysql"
@@ -32,7 +32,6 @@ data:
   ARTICLE_SYNC_API_KEY: "Sn6rR285yvW7RSQhBVrbWwsgYLqmwMx6"
   MEDIA_DISK: "backblaze"
   LIVEWIRE_TEMPORARY_FILE_UPLOAD_DISK: "local"
-
 
   BACKBLAZE_KEY: "003dfcffd3aaf950000000001"
   BACKBLAZE_SECRET: "K003jBayfoYCLw2to6DZcEcslg4+IrI"
