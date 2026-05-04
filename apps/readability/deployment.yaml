@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: readability
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: readability
@@ -22,17 +22,17 @@ spec:
         - name: readability
           image: "margarinas/readability:latest"
           imagePullPolicy: Always
-          
+
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
-          
+
           resources:
             requests:
               cpu: 200m
               memory: 200Mi
-      
+
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
