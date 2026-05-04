@@ -28,13 +28,18 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-
+          env:
+            - name: READABILITY_MAX_CONCURRENCY
+              value: "1"
+            - name: READABILITY_MAX_HTML_BYTES
+              value: "8000000"
+            - name: READABILITY_BROWSER_OPERATION_TIMEOUT_MS
+              value: "30000"
           resources:
             requests:
               cpu: 200m
               memory: 200Mi
             limits:
-              cpu: 1000m
               memory: 2Gi
 
       affinity:
