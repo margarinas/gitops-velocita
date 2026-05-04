@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: brandwatch-horizon
 spec:
-  replicas: 3
+  replicas: 6
   selector:
     matchLabels:
       app.kubernetes.io/name: brandwatch-horizon
@@ -35,8 +35,6 @@ spec:
             - configMapRef:
                 name: brandwatch
                 optional: false
-
-
 
       affinity:
         podAntiAffinity:
