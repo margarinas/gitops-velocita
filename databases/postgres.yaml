@@ -29,7 +29,7 @@ spec:
   instances: 1
 
   storage:
-    size: 30Gi
+    size: 20Gi
     storageClass: local-path
 
   bootstrap:
