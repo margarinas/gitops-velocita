@@ -10,7 +10,7 @@ data:
   APP_DEBUG: "true"
   APP_NAME: "velocita-news"
   APP_URL: "https://news.velocita.lt"
-  APP_ENV: "development"
+  APP_ENV: "local"
   APP_LOCALE: "lt"
   CACHE_DRIVER: "redis"
   DB_CONNECTION: "mysql"
