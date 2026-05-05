@@ -4,6 +4,8 @@ metadata:
   name: forgejo
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: databases
   interval: 1h0m0s
   path: ./apps/forgejo
   prune: true

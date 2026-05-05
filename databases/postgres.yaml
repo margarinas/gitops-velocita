@@ -1,0 +1,74 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: postgres-backup
+  namespace: default
+spec:
+  retentionPolicy: "5d"
+  configuration:
+    destinationPath: s3://velocita-db-backup/cnpg
+    endpointURL: https://s3.eu-central-003.backblazeb2.com
+    s3Credentials:
+      accessKeyId:
+        name: velocita-db-backup-s3
+        key: AWS_ACCESS_KEY_ID
+      secretAccessKey:
+        name: velocita-db-backup-s3
+        key: AWS_SECRET_ACCESS_KEY
+    wal:
+      compression: gzip
+    data:
+      compression: gzip
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: default
+spec:
+  instances: 1
+
+  storage:
+    size: 30Gi
+    storageClass: local-path
+
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: postgres-backup
+
+  managed:
+    # Add passwordSecret entries when the apps are cut over to PostgreSQL.
+    roles:
+      - name: velocita-db-user
+        ensure: present
+        login: true
+      - name: brandwatch-db-user
+        ensure: present
+        login: true
+      - name: velocita-news-db-user
+        ensure: present
+        login: true
+      - name: forgejo-db-user
+        ensure: present
+        login: true
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: postgres-daily-backup
+  namespace: default
+spec:
+  schedule: "0 0 0 * * *"
+  backupOwnerReference: self
+  cluster:
+    name: postgres
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io

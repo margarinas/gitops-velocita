@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: forgejo-db
+  namespace: default
+spec:
+  name: forgejo-db
+  owner: forgejo-db-user
+  databaseReclaimPolicy: retain
+  cluster:
+    name: postgres
+  schemas:
+    - name: public
+      owner: forgejo-db-user

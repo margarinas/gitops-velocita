@@ -4,6 +4,8 @@ metadata:
   name: databases
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: helm
   interval: 24h0m0s
   path: ./databases
   prune: true

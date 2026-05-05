@@ -4,6 +4,8 @@ metadata:
   name: velocita
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: databases
   interval: 1h0m0s
   path: ./apps/velocita
   prune: true

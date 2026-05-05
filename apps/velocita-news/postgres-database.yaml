@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: velocita-news-db
+  namespace: default
+spec:
+  name: velocita-news-db
+  owner: velocita-news-db-user
+  databaseReclaimPolicy: retain
+  cluster:
+    name: postgres
+  schemas:
+    - name: public
+      owner: velocita-news-db-user
