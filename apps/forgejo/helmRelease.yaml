@@ -56,8 +56,8 @@ spec:
           ADAPTER: redis
           HOST: redis://dragonfly.default:6379/0
         database:
-          DB_TYPE: mysql
-          HOST: pxc-db-haproxy.default:3306
+          DB_TYPE: postgres
+          HOST: postgres-rw.default:5432
           NAME: forgejo-db
           USER: forgejo-db-user
           SSL_MODE: disable
@@ -79,5 +79,5 @@ spec:
         - name: FORGEJO__DATABASE__PASSWD
           valueFrom:
             secretKeyRef:
-              name: forgejo-credentials
-              key: DB_PASSWORD
+              name: forgejo-postgres-credentials
+              key: password
