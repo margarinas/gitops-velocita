@@ -13,10 +13,10 @@ data:
   APP_ENV: "production"
   APP_LOCALE: "lt"
   CACHE_DRIVER: "redis"
-  DB_CONNECTION: "mysql"
+  DB_CONNECTION: "pgsql"
   DB_DATABASE: "velocita-news-db"
-  DB_HOST: "pxc-db-haproxy.default"
-  DB_PORT: "3306"
+  DB_HOST: "postgres-rw.default"
+  DB_PORT: "5432"
   DB_USERNAME: "velocita-news-db-user"
 
   QUEUE_CONNECTION: "redis"
