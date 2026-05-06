@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: velocita-news-pgloader
+  namespace: default
+data:
+  velocita-news.load: |
+    LOAD DATABASE
+         FROM mysql://velocita-news-db-user@pxc-db-haproxy.default:3306/velocita-news-db?useSSL=false
+         INTO postgresql://velocita-news-db-user@postgres-rw.default:5432/velocita-news-db
+
+     WITH include drop, create tables, create indexes, reset sequences,
+          foreign keys, downcase identifiers, uniquify index names,
+          workers = 4, concurrency = 2,
+          batch rows = 5000,
+          prefetch rows = 5000,
+          batch size = 128MB
+
+      SET PostgreSQL PARAMETERS
+          maintenance_work_mem to '128MB',
+          work_mem to '16MB'
+
+      SET MySQL PARAMETERS
+          net_read_timeout = '120',
+          net_write_timeout = '120'
+
+     ALTER TABLE NAMES MATCHING ~/./ SET SCHEMA 'public'
+
+     AFTER LOAD DO
+       $$ analyze; $$;

@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: velocita-news-pgloader-migration
+  namespace: default
+spec:
+  suspend: true
+  schedule: "0 3 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 86400
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: pgloader
+              image: ghcr.io/dimitri/pgloader:latest
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -ec
+              args:
+                - |
+                  pgloader --verbose /etc/pgloader/velocita-news.load
+              env:
+                - name: MYSQL_PWD
+                  valueFrom:
+                    secretKeyRef:
+                      name: velocita-news
+                      key: DB_PASSWORD
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: velocita-news-postgres-credentials
+                      key: password
+              volumeMounts:
+                - name: pgloader-config
+                  mountPath: /etc/pgloader
+                  readOnly: true
+              resources:
+                requests:
+                  cpu: "1"
+                  memory: 2Gi
+                limits:
+                  cpu: "4"
+                  memory: 8Gi
+          volumes:
+            - name: pgloader-config
+              configMap:
+                name: velocita-news-pgloader

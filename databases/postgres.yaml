@@ -60,6 +60,8 @@ spec:
       - name: velocita-news-db-user
         ensure: present
         login: true
+        passwordSecret:
+          name: velocita-news-postgres-credentials
       - name: forgejo-db-user
         ensure: present
         login: true
