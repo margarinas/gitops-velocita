@@ -59,6 +59,8 @@ spec:
       - name: forgejo-db-user
         ensure: present
         login: true
+        passwordSecret:
+          name: forgejo-postgres-credentials
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
