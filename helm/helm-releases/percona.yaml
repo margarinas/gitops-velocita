@@ -33,6 +33,7 @@ spec:
         name: percona
       interval: 10m
   values:
+    pause: true
     unsafeFlags:
       #      tls: false
       pxcSize: true
