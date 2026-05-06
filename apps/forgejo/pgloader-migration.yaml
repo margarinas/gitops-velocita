@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: forgejo-pgloader-migration
+  namespace: default
+spec:
+  suspend: true
+  schedule: "0 3 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 86400
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: pgloader
+              image: ghcr.io/dimitri/pgloader:latest
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -ec
+              args:
+                - |
+                  pgloader --verbose /etc/pgloader/forgejo.load
+              env:
+                - name: MYSQL_PWD
+                  valueFrom:
+                    secretKeyRef:
+                      name: forgejo-credentials
+                      key: DB_PASSWORD
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: forgejo-postgres-credentials
+                      key: password
+              volumeMounts:
+                - name: pgloader-config
+                  mountPath: /etc/pgloader
+                  readOnly: true
+              resources:
+                requests:
+                  cpu: 250m
+                  memory: 512Mi
+                limits:
+                  cpu: "1"
+                  memory: 1Gi
+          volumes:
+            - name: pgloader-config
+              configMap:
+                name: forgejo-pgloader
