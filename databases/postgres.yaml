@@ -26,6 +26,7 @@ metadata:
   name: postgres
   namespace: default
 spec:
+  enableSuperuserAccess: true
   instances: 1
 
   storage:
