@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: velocita-pgloader
+  name: brandwatch-pgloader
   namespace: default
 data:
-  velocita.load: |
+  brandwatch.load: |
     LOAD DATABASE
-         FROM mysql://velocita-db-user@pxc-db-haproxy.default:3306/velocita-db?useSSL=false
-         INTO postgresql://velocita-db-user@postgres-rw.default:5432/velocita-db
+         FROM mysql://brandwatch-db-user@pxc-db-haproxy.default:3306/brandwatch-db?useSSL=false
+         INTO postgresql://brandwatch-db-user@postgres-rw.default:5432/brandwatch-db
 
      WITH include drop, create tables, create indexes, reset sequences,
           foreign keys, downcase identifiers, uniquify index names,

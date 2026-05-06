@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: velocita-pgloader-migration
+  name: brandwatch-pgloader-migration
   namespace: default
 spec:
   suspend: true
@@ -25,17 +25,17 @@ spec:
                 - -ec
               args:
                 - |
-                  pgloader --verbose /etc/pgloader/velocita.load
+                  pgloader --verbose /etc/pgloader/brandwatch.load
               env:
                 - name: MYSQL_PWD
                   valueFrom:
                     secretKeyRef:
-                      name: velocita
+                      name: brandwatch
                       key: DB_PASSWORD
                 - name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: velocita-postgres-credentials
+                      name: brandwatch-postgres-credentials
                       key: password
               volumeMounts:
                 - name: pgloader-config
@@ -51,4 +51,4 @@ spec:
           volumes:
             - name: pgloader-config
               configMap:
-                name: velocita-pgloader
+                name: brandwatch-pgloader

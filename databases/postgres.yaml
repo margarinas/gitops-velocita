@@ -55,6 +55,8 @@ spec:
       - name: brandwatch-db-user
         ensure: present
         login: true
+        passwordSecret:
+          name: brandwatch-postgres-credentials
       - name: velocita-news-db-user
         ensure: present
         login: true
