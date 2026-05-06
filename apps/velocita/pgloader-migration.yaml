@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: forgejo-pgloader-migration
+  name: velocita-pgloader-migration
   namespace: default
 spec:
   suspend: true
@@ -25,17 +25,17 @@ spec:
                 - -ec
               args:
                 - |
-                  pgloader --verbose /etc/pgloader/forgejo.load
+                  pgloader --verbose /etc/pgloader/velocita.load
               env:
                 - name: MYSQL_PWD
                   valueFrom:
                     secretKeyRef:
-                      name: forgejo-credentials
+                      name: velocita
                       key: DB_PASSWORD
                 - name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: forgejo-postgres-credentials
+                      name: velocita-postgres-credentials
                       key: password
               volumeMounts:
                 - name: pgloader-config
@@ -51,4 +51,4 @@ spec:
           volumes:
             - name: pgloader-config
               configMap:
-                name: forgejo-pgloader
+                name: velocita-pgloader
