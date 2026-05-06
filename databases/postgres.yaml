@@ -33,10 +33,10 @@ spec:
     size: 20Gi
     storageClass: local-path
 
-  bootstrap:
-    initdb:
-      database: app
-      owner: app
+#  bootstrap:
+#    initdb:
+#      database: app
+#      owner: app
 
   plugins:
     - name: barman-cloud.cloudnative-pg.io
