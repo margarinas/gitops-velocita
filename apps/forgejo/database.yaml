@@ -1,31 +1,14 @@
----
-apiVersion: mysql.sql.crossplane.io/v1alpha1
+apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: forgejo-db
+  namespace: default
 spec:
-  forProvider: {}
----
-apiVersion: mysql.sql.crossplane.io/v1alpha1
-kind: User
-metadata:
-  name: forgejo-db-user
-spec:
-  forProvider:
-    passwordSecretRef:
-      name: forgejo-credentials
-      namespace: default
-      key: DB_PASSWORD
----
-apiVersion: mysql.sql.crossplane.io/v1alpha1
-kind: Grant
-metadata:
-  name: forgejo-db-grant
-spec:
-  forProvider:
-    privileges:
-      - ALL PRIVILEGES
-    userRef:
-      name: forgejo-db-user
-    databaseRef:
-      name: forgejo-db
+  name: forgejo-db
+  owner: forgejo-db-user
+  databaseReclaimPolicy: retain
+  cluster:
+    name: postgres
+  schemas:
+    - name: public
+      owner: forgejo-db-user

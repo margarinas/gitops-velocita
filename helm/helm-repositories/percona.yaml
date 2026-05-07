@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: percona
-  namespace: default
-spec:
-  interval: 60m
-  url: https://percona.github.io/percona-helm-charts
