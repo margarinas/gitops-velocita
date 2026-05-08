@@ -2,7 +2,6 @@
 
 # Set the primary search directory (default is ./apps)
 SEARCH_DIR="${1:-./apps}"
-KUBE_CONTEXT="${KUBE_CONTEXT:-velocita}"
 NAMESPACE="${NAMESPACE:-default}"
 SEALED_SECRETS_NAMESPACE="${SEALED_SECRETS_NAMESPACE:-infrastructure}"
 
@@ -27,9 +26,9 @@ seal_env_file() {
         ;;
     esac
 
-    kubectl --context "$KUBE_CONTEXT" -n "$NAMESPACE" create secret generic "$secret_name" \
+    kubectl -n "$NAMESPACE" create secret generic "$secret_name" \
       -o yaml --from-env-file "$env_file" --dry-run=client \
-      | kubeseal --context "$KUBE_CONTEXT" --controller-namespace="$SEALED_SECRETS_NAMESPACE" -o yaml > "$dir_path"/sealedSecret.yaml
+      | kubeseal --controller-namespace="$SEALED_SECRETS_NAMESPACE" -o yaml > "$dir_path"/sealedSecret.yaml
 }
 
 read_env_value() {
@@ -62,13 +61,13 @@ seal_postgres_credentials() {
         return
     fi
 
-    kubectl --context "$KUBE_CONTEXT" -n "$NAMESPACE" create secret generic "$secret_name" \
+    kubectl -n "$NAMESPACE" create secret generic "$secret_name" \
       --type=kubernetes.io/basic-auth \
       --from-literal=username="$username" \
       --from-literal=password="$password" \
       --dry-run=client -o yaml \
       | kubectl label --local -f - cnpg.io/reload=true -o yaml \
-      | kubeseal --context "$KUBE_CONTEXT" --controller-namespace="$SEALED_SECRETS_NAMESPACE" -o yaml > "$dir_path"/postgres-sealedSecret.yaml
+      | kubeseal --controller-namespace="$SEALED_SECRETS_NAMESPACE" -o yaml > "$dir_path"/postgres-sealedSecret.yaml
 }
 
 seal_file_secrets() {
@@ -116,7 +115,7 @@ seal_file_secrets() {
             echo "---" >> "$output_file"
         fi
 
-        kubeseal --context "$KUBE_CONTEXT" --controller-namespace="$SEALED_SECRETS_NAMESPACE" -o yaml < "$doc" >> "$output_file"
+        kubeseal --controller-namespace="$SEALED_SECRETS_NAMESPACE" -o yaml < "$doc" >> "$output_file"
         first_doc=0
         count=$((count + 1))
     done
