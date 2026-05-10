@@ -16,6 +16,8 @@ spec:
         name: traefik
       interval: 10m
   values:
+    dashboard:
+      enabled: true
     providers:
       kubernetesIngressNginx:
         enabled: true
