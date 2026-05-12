@@ -9,6 +9,10 @@ spec:
   interval: 1h0m0s
   path: ./apps/forgejo
   prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   sourceRef:
     kind: GitRepository
     name: flux-system

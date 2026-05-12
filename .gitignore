@@ -1,5 +1,5 @@
 /master.key
-/**/secrets.yaml
+/dependencies/secrets.sops.yaml
 /**/fileSecrets.yaml
 terraform.tfvars
 .terraform
@@ -8,3 +8,4 @@ k3s_kubeconfig.yaml
 terraform.tfstate*
 .env
 deploy-key.yaml
+age.agekey
