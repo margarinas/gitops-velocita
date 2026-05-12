@@ -7,6 +7,10 @@ spec:
   interval: 24h0m0s
   path: ./dependencies
   prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   sourceRef:
     kind: GitRepository
     name: flux-system
