@@ -1,5 +1,4 @@
 /master.key
-/dependencies/secrets.sops.yaml
 /**/fileSecrets.yaml
 terraform.tfvars
 .terraform
