@@ -16,6 +16,8 @@ spec:
         name: traefik
       interval: 10m
   values:
+    deployment:
+      kind: DaemonSet
     service:
       spec:
         externalTrafficPolicy: Local
