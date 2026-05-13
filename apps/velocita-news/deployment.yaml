@@ -23,6 +23,13 @@ spec:
       imagePullSecrets:
         - name: regcred
 
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.kubernetes.io/server-usage
+                    operator: DoesNotExist
 
       containers:
         - name: velocita-news
@@ -47,4 +54,3 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 3
-

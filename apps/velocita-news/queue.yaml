@@ -43,3 +43,10 @@ spec:
 
       imagePullSecrets:
       - name: regcred
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.kubernetes.io/server-usage
+                    operator: DoesNotExist

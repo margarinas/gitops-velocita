@@ -42,14 +42,6 @@ spec:
                 optional: false
 
       affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node.kubernetes.io/server-usage
-                    operator: In
-                    values:
-                      - readability
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:

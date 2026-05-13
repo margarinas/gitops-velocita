@@ -19,6 +19,13 @@ spec:
           imagePullSecrets:
             - name: regcred
           restartPolicy: Never
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: node.kubernetes.io/server-usage
+                        operator: DoesNotExist
           containers:
             - name: velocita-news-cron
               image: "margarinas/velocita-news:latest"
