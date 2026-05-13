@@ -16,6 +16,9 @@ spec:
         name: traefik
       interval: 10m
   values:
+    service:
+      spec:
+        externalTrafficPolicy: Local
     ingressRoute:
       dashboard:
         enabled: true
