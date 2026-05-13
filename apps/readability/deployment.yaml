@@ -18,6 +18,11 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      tolerations:
+        - key: node.kubernetes.io/server-usage
+          operator: Equal
+          value: readability
+          effect: NoSchedule
       containers:
         - name: readability
 
@@ -51,6 +56,10 @@ spec:
                     operator: DoesNotExist
                   - key: node-role.kubernetes.io/master
                     operator: DoesNotExist
+                  - key: node.kubernetes.io/server-usage
+                    operator: In
+                    values:
+                      - readability
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:

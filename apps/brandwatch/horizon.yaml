@@ -18,6 +18,11 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      tolerations:
+        - key: node.kubernetes.io/server-usage
+          operator: Equal
+          value: readability
+          effect: NoSchedule
 
       containers:
         - name: brandwatch-horizon
@@ -37,6 +42,14 @@ spec:
                 optional: false
 
       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.kubernetes.io/server-usage
+                    operator: In
+                    values:
+                      - readability
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
