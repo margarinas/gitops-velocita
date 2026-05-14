@@ -17,3 +17,10 @@ spec:
     persistence:
       enabled: true
       storageClass: "local-path"
+    resources:
+      requests:
+        cpu: 500m
+        memory: 3Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
