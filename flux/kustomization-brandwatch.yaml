@@ -6,6 +6,7 @@ metadata:
 spec:
   dependsOn:
     - name: databases
+    - name: helm
   interval: 1h0m0s
   path: ./apps/brandwatch
   prune: true

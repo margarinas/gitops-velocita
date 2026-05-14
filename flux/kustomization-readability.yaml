@@ -4,6 +4,8 @@ metadata:
   name: readability
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: helm
   interval: 1h0m0s
   path: ./apps/readability
   prune: true

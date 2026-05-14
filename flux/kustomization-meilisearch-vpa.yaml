@@ -1,19 +1,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: forgejo
+  name: meilisearch-vpa
   namespace: flux-system
 spec:
   dependsOn:
-    - name: databases
     - name: helm
   interval: 1h0m0s
-  path: ./apps/forgejo
+  path: ./apps/meilisearch
   prune: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   sourceRef:
     kind: GitRepository
     name: flux-system
