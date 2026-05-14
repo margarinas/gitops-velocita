@@ -8,3 +8,5 @@ terraform.tfstate*
 .env
 deploy-key.yaml
 age.agekey
+.decrypted~*
+*.decrypted~*
