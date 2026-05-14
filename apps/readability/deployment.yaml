@@ -42,11 +42,11 @@ spec:
               value: "30000"
           resources:
             requests:
-              cpu: 200m
-              memory: 200Mi
+              cpu: 2000m
+              memory: 4Gi
             limits:
-              cpu: 3500m
-              memory: 6Gi
+              cpu: 3700m
+              memory: 7000Mi
 
       affinity:
         nodeAffinity:
