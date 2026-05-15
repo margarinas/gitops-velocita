@@ -30,6 +30,7 @@ data:
   REDIS_HOST: "dragonfly.default"
   REDIS_PORT: "6379"
   SCOUT_DRIVER: "meilisearch"
+  PORTAL_ITEM_SEARCH_DRIVER: "postgres"
   SCOUT_QUEUE: "true"
   SESSION_DRIVER: "database"
   SESSION_LIFETIME: "120"
