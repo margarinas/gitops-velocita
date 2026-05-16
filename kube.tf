@@ -218,10 +218,8 @@ module "kube-hetzner" {
       labels = [
         "node.kubernetes.io/server-usage=readability"
       ],
-      taints = [
-        "node.kubernetes.io/server-usage=readability:NoSchedule"
-      ],
-      count           = 2
+      taints = [],
+      count           = 1
       subnet_ip_range = "10.100.0.0/16"
 
       # Fine-grained control over placement groups (nodes in the same group are spread over different physical servers, 10 nodes per placement group max):
