@@ -53,22 +53,3 @@ spec:
               cpu: 3700m
               memory: 7000Mi
 
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/control-plane
-                    operator: DoesNotExist
-                  - key: node-role.kubernetes.io/master
-                    operator: DoesNotExist
-                  - key: node.kubernetes.io/server-usage
-                    operator: In
-                    values:
-                      - readability
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: readability
-              topologyKey: kubernetes.io/hostname
