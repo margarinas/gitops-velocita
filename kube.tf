@@ -215,11 +215,9 @@ module "kube-hetzner" {
       name        = "agent-large",
       server_type = "cx33",
       location    = "hel1",
-      labels = [
-        "node.kubernetes.io/server-usage=readability"
-      ],
+      labels = [],
       taints = [],
-      count           = 1
+      count           = 0
       subnet_ip_range = "10.100.0.0/16"
 
       # Fine-grained control over placement groups (nodes in the same group are spread over different physical servers, 10 nodes per placement group max):
