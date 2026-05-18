@@ -58,3 +58,5 @@ data:
   SSL_MODE: "off"
   TELESCOPE_QUERY_WATCHER: "true"
   PHP_OPCACHE_ENABLE: "1"
+
+  AUTORUN_ENABLED: "true"
