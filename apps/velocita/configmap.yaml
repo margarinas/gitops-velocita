@@ -61,4 +61,3 @@ data:
 
   AUTORUN_ENABLED: "true"
   GEMINI_REQUEST_TIMEOUT: "180"
-  GEMINI_API_KEY: "AIzaSyD0sIkx6ovUxcCgZj5r4X-suPwX9qhYRog"
