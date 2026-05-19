@@ -40,3 +40,5 @@ data:
   BACKBLAZE_REGION: "eu-central-003"
   BACKBLAZE_URL: "https://s3.eu-central-003.backblazeb2.com/velocita-news-public"
   BRANDWATCH_API_ENDPOINT: "http://brandwatch:8080/api"
+
+  GEMINI_REQUEST_TIMEOUT: "180"
