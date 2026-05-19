@@ -32,6 +32,7 @@ spec:
         - --tries=3
         - --max-jobs=500
         - --memory=256
+        - --timeout=180
 
         livenessProbe:
           exec:
