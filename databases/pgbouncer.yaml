@@ -1,0 +1,138 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: postgres-pgbouncer-rw
+  namespace: default
+  labels:
+    app.kubernetes.io/name: postgres-pgbouncer-rw
+spec:
+  cluster:
+    name: postgres
+  instances: 3
+  type: rw
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: postgres-pgbouncer-rw
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - postgres-pgbouncer-rw
+              topologyKey: kubernetes.io/hostname
+  pgbouncer:
+    poolMode: session
+    parameters:
+      max_client_conn: "300"
+      default_pool_size: "5"
+      min_pool_size: "1"
+      reserve_pool_size: "2"
+      reserve_pool_timeout: "5"
+      query_wait_timeout: "120"
+      idle_transaction_timeout: "300"
+      server_idle_timeout: "600"
+      server_lifetime: "3600"
+      server_fast_close: "1"
+      dns_max_ttl: "30"
+      application_name_add_host: "1"
+      client_tls_sslmode: "disable"
+      log_connections: "0"
+      log_disconnections: "0"
+      stats_period: "60"
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: postgres-pgbouncer-rw
+  namespace: default
+  labels:
+    app.kubernetes.io/name: postgres-pgbouncer-rw
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      cnpg.io/poolerName: postgres-pgbouncer-rw
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: postgres-pgbouncer-ro
+  namespace: default
+  labels:
+    app.kubernetes.io/name: postgres-pgbouncer-ro
+spec:
+  cluster:
+    name: postgres
+  instances: 3
+  type: ro
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: postgres-pgbouncer-ro
+    spec:
+      containers:
+        - name: pgbouncer
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - postgres-pgbouncer-ro
+              topologyKey: kubernetes.io/hostname
+  pgbouncer:
+    poolMode: session
+    parameters:
+      max_client_conn: "300"
+      default_pool_size: "5"
+      min_pool_size: "1"
+      reserve_pool_size: "2"
+      reserve_pool_timeout: "5"
+      query_wait_timeout: "120"
+      idle_transaction_timeout: "300"
+      server_idle_timeout: "600"
+      server_lifetime: "3600"
+      server_fast_close: "1"
+      dns_max_ttl: "30"
+      application_name_add_host: "1"
+      client_tls_sslmode: "disable"
+      log_connections: "0"
+      log_disconnections: "0"
+      stats_period: "60"
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: postgres-pgbouncer-ro
+  namespace: default
+  labels:
+    app.kubernetes.io/name: postgres-pgbouncer-ro
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      cnpg.io/poolerName: postgres-pgbouncer-ro

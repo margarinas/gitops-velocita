@@ -57,7 +57,7 @@ spec:
           HOST: redis://dragonfly.default:6379/0
         database:
           DB_TYPE: postgres
-          HOST: postgres-rw.default:5432
+          HOST: postgres-pgbouncer-rw.default:5432
           NAME: forgejo-db
           USER: forgejo-db-user
           SSL_MODE: disable
