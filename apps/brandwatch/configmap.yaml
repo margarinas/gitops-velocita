@@ -7,7 +7,8 @@ metadata:
   labels:
     app.kubernetes.io/name: brandwatch
 data:
-  APP_DEBUG: "true"
+  APP_DEBUG: "false"
+  APP_ENV: "production"
   APP_NAME: "Brandwatch"
   APP_URL: "https://brandwatch.velocita.lt"
   CACHE_DRIVER: "redis"

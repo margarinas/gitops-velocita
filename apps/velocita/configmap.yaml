@@ -8,9 +8,9 @@ metadata:
     app.kubernetes.io/name: velocita
 
 data:
-  APP_DEBUG: "true"
+  APP_DEBUG: "false"
   APP_DOMAIN: "velocita.motorsniper.lt"
-  APP_ENV: "development"
+  APP_ENV: "production"
   APP_NAME: "Velocita"
   APP_URL: "https://velocita.motorsniper.lt"
   AWS_ACCESS_KEY_ID: "00323b62bd98d890000000001"
