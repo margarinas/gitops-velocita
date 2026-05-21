@@ -33,6 +33,13 @@ spec:
         - --max-jobs=500
         - --memory=256
         - --timeout=180
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
 
         livenessProbe:
           exec:
