@@ -199,7 +199,7 @@ module "kube-hetzner" {
       location    = "nbg1",
       labels      = [],
       taints      = [],
-      count       = 0
+      count       = 1
       # subnet_ip_range = "10.0.0.0/16"  # Optional: override default subnet range
       # swap_size   = "2G" # remember to add the suffix, examples: 512M, 1G
       # zram_size   = "2G" # remember to add the suffix, examples: 512M, 1G

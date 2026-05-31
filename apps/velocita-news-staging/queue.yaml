@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: velocita-news-staging-queue
+  namespace: default
+  labels:
+    app: velocita-news-staging-queue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: velocita-news-staging-queue
+  template:
+    metadata:
+      name: velocita-news-staging-queue
+      labels:
+        app: velocita-news-staging-queue
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: velocita-news-staging
+        - secretRef:
+            name: velocita-news-staging
+        image: margarinas/velocita-news:latest
+        imagePullPolicy: Always
+        name: velocita-news-staging-queue
+        command:
+        - php
+        - /var/www/html/artisan
+        - queue:work
+        - --tries=3
+        - --max-jobs=500
+        - --memory=256
+        - --timeout=180
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+        livenessProbe:
+          exec:
+            command: ["healthcheck-queue"]
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+      imagePullSecrets:
+      - name: regcred
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.kubernetes.io/server-usage
+                    operator: DoesNotExist

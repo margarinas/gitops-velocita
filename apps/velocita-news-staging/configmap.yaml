@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: velocita-news-staging
+  namespace: default
+  labels:
+    app.kubernetes.io/name: velocita-news-staging
+data:
+  APP_DEBUG: "false"
+  APP_NAME: "velocita-news-staging"
+  APP_URL: "https://staging-news.motorsniper.lt"
+  APP_ENV: "staging"
+  APP_LOCALE: "lt"
+  CACHE_DRIVER: "redis"
+  DB_CONNECTION: "pgsql"
+  DB_DATABASE: "velocita-news-staging-db"
+  DB_HOST: "postgres-pgbouncer-rw.default"
+  DB_PORT: "5432"
+  DB_USERNAME: "velocita-news-staging-db-user"
+
+  QUEUE_CONNECTION: "redis"
+  REDIS_HOST: "dragonfly.default"
+  REDIS_PORT: "6379"
+
+  SESSION_DRIVER: "redis"
+  SESSION_LIFETIME: "120"
+  SSL_MODE: "off"
+  PHP_OPCACHE_ENABLE: "1"
+  AUTORUN_ENABLED: "true"
+
+  ARTICLE_SYNC_API_KEY: "Sn6rR285yvW7RSQhBVrbWwsgYLqmwMx6"
+  MEDIA_DISK: "backblaze"
+  LIVEWIRE_TEMPORARY_FILE_UPLOAD_DISK: "local"
+
+  BACKBLAZE_KEY: "003dfcffd3aaf950000000001"
+  BACKBLAZE_SECRET: "K003jBayfoYCLw2to6DZcEcslg4+IrI"
+  BACKBLAZE_BUCKET: "velocita-news-public"
+  BACKBLAZE_ENDPOINT: "https://s3.eu-central-003.backblazeb2.com"
+  BACKBLAZE_REGION: "eu-central-003"
+  BACKBLAZE_URL: "https://s3.eu-central-003.backblazeb2.com/velocita-news-public"
+  BRANDWATCH_API_ENDPOINT: "http://brandwatch:8080/api"
+
+  GEMINI_REQUEST_TIMEOUT: "180"

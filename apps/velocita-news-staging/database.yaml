@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: velocita-news-staging-db
+  namespace: default
+spec:
+  name: velocita-news-staging-db
+  owner: velocita-news-staging-db-user
+  databaseReclaimPolicy: retain
+  cluster:
+    name: postgres
+  schemas:
+    - name: public
+      owner: velocita-news-staging-db-user
