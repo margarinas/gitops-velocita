@@ -22,7 +22,7 @@ spec:
             name: velocita-news
         - secretRef:
             name: velocita-news
-        image: margarinas/velocita-news:latest
+        image: margarinas/velocita-news:release
         imagePullPolicy: Always
         name: velocita-news-queue
         command:

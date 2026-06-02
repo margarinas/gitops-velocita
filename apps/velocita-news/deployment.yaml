@@ -33,7 +33,7 @@ spec:
 
       containers:
         - name: velocita-news
-          image: "margarinas/velocita-news:latest"
+          image: "margarinas/velocita-news:release"
           imagePullPolicy: Always
           envFrom:
             - configMapRef:

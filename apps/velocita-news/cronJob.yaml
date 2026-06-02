@@ -28,7 +28,7 @@ spec:
                         operator: DoesNotExist
           containers:
             - name: velocita-news-cron
-              image: "margarinas/velocita-news:latest"
+              image: "margarinas/velocita-news:release"
               imagePullPolicy: IfNotPresent
               command:
                 - /bin/sh
