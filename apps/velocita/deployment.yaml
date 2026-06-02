@@ -21,7 +21,7 @@ spec:
 
       containers:
         - name: velocita
-          image: "margarinas/velocita:latest"
+          image: "margarinas/velocita:release"
           imagePullPolicy: Always
           envFrom:
             - configMapRef:

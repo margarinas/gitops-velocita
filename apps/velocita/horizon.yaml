@@ -22,7 +22,7 @@ spec:
       containers:
         - name: velocita-horizon
 
-          image: "margarinas/velocita:latest"
+          image: "margarinas/velocita:release"
           imagePullPolicy: IfNotPresent
           command:
             - /bin/sh
