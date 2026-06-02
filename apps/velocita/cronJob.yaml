@@ -21,7 +21,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: velocita-cron
-              image: "margarinas/velocita:release"
+              image: "margarinas/velocita:latest"
               imagePullPolicy: IfNotPresent
               command:
                 - /bin/sh
