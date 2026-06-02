@@ -29,6 +29,11 @@ spec:
   enableSuperuserAccess: true
   instances: 3
 
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+
   storage:
     size: 20Gi
     storageClass: local-path
