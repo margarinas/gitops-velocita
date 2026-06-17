@@ -42,3 +42,12 @@ data:
   BRANDWATCH_API_ENDPOINT: "http://brandwatch:8080/api"
 
   GEMINI_REQUEST_TIMEOUT: "180"
+
+
+  MAIL_MAILER: "smtp"
+  MAIL_HOST: "smtp-relay.gmail.com"
+  MAIL_PORT: "587"
+  MAIL_USERNAME: "linas@velocita.lt"
+  MAIL_ENCRYPTION: "tls"
+  MAIL_FROM_ADDRESS: "linas@velocita.lt"
+  MAIL_FROM_NAME: "Velocita News Staging"

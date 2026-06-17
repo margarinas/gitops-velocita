@@ -30,6 +30,10 @@ spec:
       storageClass: "local-path"
       size: 20Gi
 
+    service:
+      ssh:
+        port: 2222
+
     ingress:
       enabled: true
       className: traefik

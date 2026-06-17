@@ -925,6 +925,14 @@ module "kube-hetzner" {
   # Adding extra firewall rules, like opening a port
   # More info on the format here https://registry.terraform.io/providers/hetznercloud/hcloud/latest/docs/resources/firewall
   extra_firewall_rules = [
+    {
+      description     = "Allow Forgejo SSH"
+      direction       = "in"
+      protocol        = "tcp"
+      port            = "2222"
+      source_ips      = ["0.0.0.0/0", "::/0"]
+      destination_ips = [] # Won't be used for this rule
+    },
 #     {
 #       description = "For Postgres"
 #       direction       = "in"
