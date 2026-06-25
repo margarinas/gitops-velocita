@@ -18,6 +18,8 @@ data:
   DB_HOST: "postgres-pgbouncer-rw.default"
   DB_PORT: "5432"
   DB_USERNAME: "velocita-news-db-user"
+  DB_HOST_READ: "postgres-pgbouncer-ro.default"
+  DB_HOST_WRITE: "postgres-pgbouncer-rw.default"
 
   QUEUE_CONNECTION: "redis"
   REDIS_HOST: "dragonfly.default"

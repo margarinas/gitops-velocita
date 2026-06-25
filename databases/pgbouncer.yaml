@@ -36,24 +36,12 @@ spec:
                       - postgres-pgbouncer-rw
               topologyKey: kubernetes.io/hostname
   pgbouncer:
-    poolMode: session
+    poolMode: transaction
     parameters:
-      max_client_conn: "300"
-      default_pool_size: "5"
-      min_pool_size: "1"
-      reserve_pool_size: "2"
-      reserve_pool_timeout: "5"
-      query_wait_timeout: "120"
-      idle_transaction_timeout: "300"
-      server_idle_timeout: "600"
-      server_lifetime: "3600"
-      server_fast_close: "1"
-      dns_max_ttl: "30"
-      application_name_add_host: "1"
-      client_tls_sslmode: "disable"
-      log_connections: "0"
-      log_disconnections: "0"
-      stats_period: "60"
+      default_pool_size: "20"
+      max_client_conn: "400"
+      max_prepared_statements: "200"
+      reserve_pool_size: "5"
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -105,24 +93,12 @@ spec:
                       - postgres-pgbouncer-ro
               topologyKey: kubernetes.io/hostname
   pgbouncer:
-    poolMode: session
+    poolMode: transaction
     parameters:
-      max_client_conn: "300"
-      default_pool_size: "5"
-      min_pool_size: "1"
-      reserve_pool_size: "2"
-      reserve_pool_timeout: "5"
-      query_wait_timeout: "120"
-      idle_transaction_timeout: "300"
-      server_idle_timeout: "600"
-      server_lifetime: "3600"
-      server_fast_close: "1"
-      dns_max_ttl: "30"
-      application_name_add_host: "1"
-      client_tls_sslmode: "disable"
-      log_connections: "0"
-      log_disconnections: "0"
-      stats_period: "60"
+      default_pool_size: "20"
+      max_client_conn: "400"
+      max_prepared_statements: "200"
+      reserve_pool_size: "5"
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
