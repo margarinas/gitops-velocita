@@ -15,8 +15,8 @@ data:
   CACHE_DRIVER: "redis"
   DB_CONNECTION: "pgsql"
   DB_DATABASE: "velocita-news-staging-db"
-  DB_WRITE_HOST: "postgres-pgbouncer-rw.default"
-  DB_READ_HOST: "postgres-pgbouncer-ro.default"
+  DB_HOST_READ: "postgres-pgbouncer-ro.default"
+  DB_HOST_WRITE: "postgres-pgbouncer-rw.default"
   DB_PORT: "5432"
   DB_USERNAME: "velocita-news-staging-db-user"
 
