@@ -30,7 +30,7 @@ spec:
         - /var/www/html/artisan
         - queue:work
         - --tries=3
-        - --max-jobs=500
+        - --max-time=3600
         - --memory=256
         - --timeout=180
         resources:
