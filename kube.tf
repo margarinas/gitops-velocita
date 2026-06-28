@@ -199,7 +199,7 @@ module "kube-hetzner" {
       location    = "nbg1",
       labels      = [],
       taints      = [],
-      count       = 1
+      count       = 0
       # subnet_ip_range = "10.0.0.0/16"  # Optional: override default subnet range
       # swap_size   = "2G" # remember to add the suffix, examples: 512M, 1G
       # zram_size   = "2G" # remember to add the suffix, examples: 512M, 1G
@@ -217,7 +217,7 @@ module "kube-hetzner" {
       location    = "hel1",
       labels = [],
       taints = [],
-      count           = 0
+      count           = 1
       subnet_ip_range = "10.100.0.0/16"
 
       # Fine-grained control over placement groups (nodes in the same group are spread over different physical servers, 10 nodes per placement group max):
