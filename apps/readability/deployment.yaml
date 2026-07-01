@@ -28,6 +28,15 @@ spec:
           operator: Equal
           value: readability
           effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.kubernetes.io/server-usage
+                    operator: In
+                    values:
+                      - readability
       containers:
         - name: readability
 
@@ -52,4 +61,3 @@ spec:
             limits:
               cpu: 3700m
               memory: 7000Mi
-

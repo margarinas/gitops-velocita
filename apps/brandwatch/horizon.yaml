@@ -40,6 +40,13 @@ spec:
             - configMapRef:
                 name: brandwatch
                 optional: false
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1000Mi"
+              cpu: "2000m"
 
       affinity:
         podAntiAffinity:

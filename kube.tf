@@ -215,8 +215,12 @@ module "kube-hetzner" {
       name        = "agent-large",
       server_type = "cx33",
       location    = "hel1",
-      labels = [],
-      taints = [],
+      labels = [
+        "node.kubernetes.io/server-usage=readability"
+      ],
+      taints = [
+        "node.kubernetes.io/server-usage=readability:NoSchedule"
+      ],
       count           = 1
       subnet_ip_range = "10.100.0.0/16"
 
