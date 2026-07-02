@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: readability
+  namespace: default
+  labels:
+    app.kubernetes.io/name: readability
+data:
+  READABILITY_MOBILE_PROXY_URL: "http://paulius0NXHg:Jaux2mXey3@78.46.100.233:45023"
+  READABILITY_BROWSER_STARTUP_COOKIES: |
+    [
+      {
+          "domain": "login.bloomberg.com",
+          "name": "_user-id",
+          "path": "/",
+          "value": "928E43F9224E4B4D85E99B6B9795471A",
+          "httpOnly": true,
+          "secure": true,
+          "sameSite": "Lax",
+      },
+      {
+          "domain": "login.bloomberg.com",
+          "name": "_user-token",
+          "path": "/",
+          "value": "9UDRJSYA2WYXALVSJTS30DTX",
+          "httpOnly": true,
+          "secure": true,
+          "sameSite": "Lax",
+      },
+      {
+          "domain": ".euractiv.com",
+          "name": "fp.user",
+          "path": "/",
+          "value": "{\"id_token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6IjNDRDJCOEUxQkQ0MzM5MDI1QUVBNzgzMTFDREQyMzM0MTYzMjY0MUVSUzI1NiIsInR5cCI6IkpXVCIsIng1dCI6IlBOSzQ0YjFET1FKYTZuZ3hITjBqTkJZeVpCNCJ9.eyJuYmYiOjE3ODI4OTk0OTUsImV4cCI6MTc4NTMxODY5NSwiaXNzIjoiaHR0cHM6Ly9hY2NvdW50cy5mbGlwLXBheS5jb20iLCJhdWQiOiJldXJhY3RpdiIsInN1YiI6IjY4ZGMyODJmLWRjNDctNDA4ZC1hNTBmLWI2MGU5ZWE2ZDM0ZSIsImlkcCI6Imh0dHBzOi8vYWNjb3VudHMuZmxpcC1wYXkuY29tIiwiaWF0IjoxNzgyODk5NDk1LCJhbGlhcyI6InVzZXItNkJFRDEtNjc3ODkiLCJlbWFpbCI6InBhdWxpdXNAdmVsb2NpdGEubHQiLCJuYW1lIjoiUGF1bGl1cyBTdmlrbGFzIFZlbG9jaXRhIE1CIiwiYW1yIjpbInB3ZCJdfQ.Rw-c8KkK5wASL5GVaXRMbtPvb45wsqyiOO8M9jVJyS8LTUsCiG6-S92Y2Yhy52F39wYgYOuQYWXmGWQdb_NmqfXeZEDpRq3XghEyG2Jc6lem7K6Mc8Sh7pyVIHwRs0Lku1E3pfjPmN4025lf_-3mN2PRN1Pf7CzpK-HhBqjN4CeMr0K96OXUZ-rcMvVNL8fCdARrksPjtUS1hgQWawyMwZlxHHe6zUX53YTbeN-kVgS15KrgfaRW0ptgl7VqfR9359j-UBF6YYPELeoAabe1qztu4wusbu5kpB4KYzxws5putx211ZAokJl2uUlesMWzdSIy5rL6E-_QOcUx7Azn6y-BjqErwvp4T5jZLuBlKoQVbhq6zAeugsoPzXvMNy7mOHlm3L3ONzvndcPVV4sJQQvWTkKFflmj-9S8G-2idNUZg791U6neAfrs4vXpDc-jkp5TGpAh-LWDYmOi_XRIloiUkM_EKrdp8uIjOSMutgJ7f5pj-HyAfaj5b9bIVGyziS9BhcR3PHB0wPJcLsn-n4vEmZgIxfFudq56YE0yEra-VAJDTxaxRI5mUuVffrORkTE1e1PTGqkw2yDwLMbiemas-5PfFRVa6A6GxMxk4aIqnljc89CZ6DRVvUiRjyyzPW_Sv5qv9a1DX9YpggK-_DCuuhag1pk0Xw9ZCANEEhY\",\"access_token\":\"7545D2670CA4DC551C28754D91F12536D0969FEADB851D2B4E4860B662E6AE8A\",\"expires_in\":2419200,\"token_type\":\"Bearer\",\"refresh_token\":\"A5165688C425EB888F64D8C14F080A10D9DF7E2BA12D92AC2F7EB681C3873F1D\",\"provider\":\"web-direct\",\"expires_at_datetime\":\"2026-07-29T09:51:00.275Z\",\"registered\":true,\"access_token_expiration_date\":\"2026-07-29T09:51:00.275Z\",\"access_token_expired\":false,\"access_token_expiration_date_expired\":false,\"user_email\":\"paulius@velocita.lt\",\"subscriber\":false}",
+
+      },
+      {
+          "domain": ".nytimes.com",
+          "name": "NYT-S",
+          "path": "/",
+          "value": "0^CCASMgje0ZPSBhCc1pPSBhoSMS2Lq6zijTnPBGUg1qdZL7cdIKnY3pYBKgIedzimwo3SBkIAGkCX8y5bvqUpjaxeeYZP073zw0Yk9cHWZQsMSg0G031lMKVvHrd4JS1BxzwcZXtwYU-GnnTA4tauBfnK9Qv0gkAM",
+          "httpOnly": true
+      },
+      {
+          "domain": ".washingtonpost.com",
+          "name": "wapo_login_id",
+          "value": "64d7bc43-64d0-4529-a797-03e9a7eab61c",
+          "secure": true,
+          "path": "/"
+      },
+      {
+          "domain": ".washingtonpost.com",
+          "name": "wapo_secure_login_id",
+          "value": "WAPO-Nrducue3TrBy958ByuGuEpNT5cdztbgIYnriYMTr%2Fr4i0EX13f%2BoEeQ%2FwbLp8JyvyEUSbB5UcPqvmJXVFPcpi3yJAeJzYY0OcEHPQKwMb8GEUTTVbxHEPf8jeHYxtZKcmlfB5JfSnZyzpxu%2BGu679ZNKP4WBEy9d82XEsgEUbtPN8vMDjpyU1EK%2FuqJRmP%2Fyx1YklYaTISB2wnbOsqqj5fShL2v1nOWHJzOeUBjNxjyQtk0%2FqoluM4%2FQTSDNWHK%2B",
+          "secure": true,
+          "path": "/",
+          "httpOnly": true
+      }
+    ]
