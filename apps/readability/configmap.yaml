@@ -59,5 +59,12 @@ data:
           "secure": true,
           "path": "/",
           "httpOnly": true
+      },
+      {
+          "domain": "auth.delfi.lt",
+          "name": "aH6KBWojpe__ut",
+          "value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2lkLnBpYW5vLmlvIiwic3ViIjoiMTIyMjYwOCIsImF1ZCI6ImFINktCV29qcGUiLCJsb2dpbl90aW1lc3RhbXAiOiIxNzgxNzY0ODQwMDE2IiwiZ2l2ZW5fbmFtZSI6IlBhdWxpdXMiLCJmYW1pbHlfbmFtZSI6IlN2aWtsYXMiLCJlbWFpbCI6InN2aWtsYXNAZ21haWwuY29tIiwiZW1haWxfY29uZmlybWF0aW9uX3JlcXVpcmVkIjpmYWxzZSwicHJlX2NvbmZpcm1lZF91c2VyIjpmYWxzZSwiZXhwIjoxNzk3NTMyODQwLCJpYXQiOjE3ODE3NjQ4NDAsImp0aSI6IlRJbUJTdjNLMkh5Q2lXY0lpdjNzVjdLaSIsInBhc3N3b3JkVHlwZSI6InBhc3N3b3JkIiwiciI6dHJ1ZSwibHMiOiJJRCIsInNjIjoxMiwidHNjIjoxMn0.izVQDon_NcCcqV8NhdHzvBsBlniFe5e89oBU_VsczIA",
+          "secure": true,
+          "path": "/"
       }
     ]
