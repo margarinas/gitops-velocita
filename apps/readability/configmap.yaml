@@ -7,6 +7,9 @@ metadata:
   labels:
     app.kubernetes.io/name: readability
 data:
+  READABILITY_MAX_CONCURRENCY: "1"
+  READABILITY_MAX_HTML_BYTES: "8000000"
+  READABILITY_BROWSER_OPERATION_TIMEOUT_MS: "30000"
   READABILITY_MOBILE_PROXY_URL: "http://paulius0NXHg:Jaux2mXey3@78.46.100.233:45023"
   READABILITY_BROWSER_STARTUP_COOKIES: |
     [
@@ -58,4 +61,3 @@ data:
           "httpOnly": true
       }
     ]
-
