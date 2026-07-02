@@ -28,7 +28,7 @@ spec:
         - name: brandwatch-horizon
 
           image: "margarinas/brandwatch:latest"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           command:
             - /bin/sh
             - -c

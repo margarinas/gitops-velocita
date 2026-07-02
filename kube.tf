@@ -984,6 +984,14 @@ module "kube-hetzner" {
       port        = "44190",
       source_ips      = [] # Won't be used for this rule
       destination_ips  = ["0.0.0.0/0", "::/0"]
+    },
+    {
+      description = "Allow Proxy traffic",
+      direction   = "out",
+      protocol    = "tcp",
+      port        = "45023",
+      source_ips      = [] # Won't be used for this rule
+      destination_ips  = ["0.0.0.0/0", "::/0"]
     }
   ]
 
