@@ -953,14 +953,14 @@ module "kube-hetzner" {
       source_ips      = [] # Won't be used for this rule
       destination_ips = ["0.0.0.0/0", "::/0"]
     },
-    {
-      description = "Allow crossplane"
-      direction       = "out"
-      protocol        = "tcp"
-      port            = "9443"
-      source_ips      = [] # Won't be used for this rule
-      destination_ips = ["0.0.0.0/0", "::/0"]
-    },
+    # {
+    #   description = "Allow crossplane"
+    #   direction       = "out"
+    #   protocol        = "tcp"
+    #   port            = "9443"
+    #   source_ips      = [] # Won't be used for this rule
+    #   destination_ips = ["0.0.0.0/0", "::/0"]
+    # },
     {
       description = "Allow SMTP traffic",
       direction   = "out",
