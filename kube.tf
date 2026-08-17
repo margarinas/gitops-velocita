@@ -15,7 +15,7 @@ module "kube-hetzner" {
   providers = {
     hcloud = hcloud
   }
-  hcloud_token = var.hcloud_token != "" ? var.hcloud_token : local.hcloud_token
+  hcloud_token   = var.hcloud_token != "" ? var.hcloud_token : local.hcloud_token
   robot_user     = var.robot_user != "" ? var.robot_user : local.robot_user
   robot_password = var.robot_password != "" ? var.robot_password : local.robot_password
 
@@ -235,11 +235,11 @@ module "kube-hetzner" {
       server_type = "cx33",
       location    = "nbg1",
       # Fully optional, just a demo.
-      labels      = [
+      labels = [
         "node.kubernetes.io/server-usage=storage"
       ],
-      taints      = [],
-      count       = 0
+      taints = [],
+      count  = 0
 
       # In the case of using Longhorn, you can use Hetzner volumes instead of using the node's own storage by specifying a value from 10 to 10240 (in GB)
       # It will create one volume per node in the nodepool, and configure Longhorn to use them.
@@ -284,24 +284,24 @@ module "kube-hetzner" {
     # In this case, the node-pool variables are defaults which can be overridden on a per-node basis.
     # Each key in the nodes map refers to a single node and must be an integer string ("1", "123", ...).
     #{
-     # name        = "agent-arm-medium",
-     # server_type = "cax21",
-     # location    = "nbg1",
-     # labels      = [],
-     # taints      = [],
-     # nodes = {
-     #   "1" : {
-     #     location                  = "fsn1"
-     #     labels = [
-     #       "testing-labels=a1",
-     #     ]
-     #   },
-     #   "20" : {
-     #     labels = [
-     #       "testing-labels=b1",
-     #     ]
-     #   }
-     # }
+    # name        = "agent-arm-medium",
+    # server_type = "cax21",
+    # location    = "nbg1",
+    # labels      = [],
+    # taints      = [],
+    # nodes = {
+    #   "1" : {
+    #     location                  = "fsn1"
+    #     labels = [
+    #       "testing-labels=a1",
+    #     ]
+    #   },
+    #   "20" : {
+    #     labels = [
+    #       "testing-labels=b1",
+    #     ]
+    #   }
+    # }
     #},
   ]
   # Add additional configuration options for control planes here.
@@ -572,8 +572,7 @@ module "kube-hetzner" {
   # See https://github.com/hetznercloud/hcloud-cloud-controller-manager/releases for the available versions.
   # hetzner_ccm_version = ""
 
-  # By default, new installations use Helm to install Hetzner CCM. You can use the legacy deployment method (using `kubectl apply`) by setting `hetzner_ccm_use_helm = false`.
-  hetzner_ccm_use_helm = true
+
 
   # To enable Hetzner CCM compatibility with dedicated Robot servers, set the `robot_ccm_enabled` to "true", default is "false".
   # Requirements for the CCM and Kubernetes Cluster to work with dedicated Robot servers:
@@ -748,8 +747,8 @@ module "kube-hetzner" {
   # see https://rancher.com/docs/k3s/latest/en/upgrades/basic/ and https://update.k3s.io/v1-release/channels
   # ⚠️ If you are going to use Rancher addons for instance, it's always a good idea to fix the kube version to one minor version below the latest stable,
   #     e.g. v1.32 instead of the stable v1.33.
-  # The default is "v1.33".
-  initial_k3s_channel = "stable"
+  # The default is "stable" in v3.
+  k3s_channel = "stable"
 
   # Allows to specify the version of the System Upgrade Controller for automated upgrades of k3s.
   # v0.15.0+ supports the 'window' parameter for scheduling upgrade times.
@@ -937,16 +936,16 @@ module "kube-hetzner" {
       source_ips      = ["0.0.0.0/0", "::/0"]
       destination_ips = [] # Won't be used for this rule
     },
-#     {
-#       description = "For Postgres"
-#       direction       = "in"
-#       protocol        = "tcp"
-#       port            = "5432"
-#       source_ips      = ["0.0.0.0/0", "::/0"]
-#       destination_ips = [] # Won't be used for this rule
-#     },
+    #     {
+    #       description = "For Postgres"
+    #       direction       = "in"
+    #       protocol        = "tcp"
+    #       port            = "5432"
+    #       source_ips      = ["0.0.0.0/0", "::/0"]
+    #       destination_ips = [] # Won't be used for this rule
+    #     },
     {
-      description = "To Allow FluxCD access to resources via SSH"
+      description     = "To Allow FluxCD access to resources via SSH"
       direction       = "out"
       protocol        = "tcp"
       port            = "22"
@@ -962,36 +961,36 @@ module "kube-hetzner" {
     #   destination_ips = ["0.0.0.0/0", "::/0"]
     # },
     {
-      description = "Allow SMTP traffic",
-      direction   = "out",
-      protocol    = "tcp",
-      port        = "587",
+      description     = "Allow SMTP traffic",
+      direction       = "out",
+      protocol        = "tcp",
+      port            = "587",
       source_ips      = [] # Won't be used for this rule
-      destination_ips  = ["0.0.0.0/0", "::/0"]
+      destination_ips = ["0.0.0.0/0", "::/0"]
     },
     {
-      description = "Allow IMAP traffic",
-      direction   = "out",
-      protocol    = "tcp",
-      port        = "993",
+      description     = "Allow IMAP traffic",
+      direction       = "out",
+      protocol        = "tcp",
+      port            = "993",
       source_ips      = [] # Won't be used for this rule
-      destination_ips  = ["0.0.0.0/0", "::/0"]
+      destination_ips = ["0.0.0.0/0", "::/0"]
     },
     {
-      description = "Allow Proxy traffic",
-      direction   = "out",
-      protocol    = "tcp",
-      port        = "44190",
+      description     = "Allow Proxy traffic",
+      direction       = "out",
+      protocol        = "tcp",
+      port            = "44190",
       source_ips      = [] # Won't be used for this rule
-      destination_ips  = ["0.0.0.0/0", "::/0"]
+      destination_ips = ["0.0.0.0/0", "::/0"]
     },
     {
-      description = "Allow Proxy traffic",
-      direction   = "out",
-      protocol    = "tcp",
-      port        = "45023",
+      description     = "Allow Proxy traffic",
+      direction       = "out",
+      protocol        = "tcp",
+      port            = "45023",
       source_ips      = [] # Won't be used for this rule
-      destination_ips  = ["0.0.0.0/0", "::/0"]
+      destination_ips = ["0.0.0.0/0", "::/0"]
     }
   ]
 
