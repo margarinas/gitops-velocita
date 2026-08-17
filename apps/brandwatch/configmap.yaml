@@ -38,3 +38,8 @@ data:
   CRAWLER_USER_AGENT: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
   AUTORUN_ENABLED: "true"
+  BACKBLZE_KEY: "00323b62bd98d890000000005"
+  BACKBLZE_BUCKET: "brandwatch-prod"
+  BACKBLZE_ENDPOINT: "https://s3.eu-central-003.backblazeb2.com"
+  BACKBLZE_REGION: "eu-central-003"
+  BACKBLZE_URL: "https://s3.eu-central-003.backblazeb2.com/brandwatch-prod"
