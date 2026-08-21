@@ -11,9 +11,14 @@ spec:
     spec:
       chart: cert-manager
       version: v1.20.2
+      version: v1.21.1
       sourceRef:
         kind: HelmRepository
         name: jetstack
       interval: 10m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     installCRDs: true

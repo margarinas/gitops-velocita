@@ -21,9 +21,9 @@
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5433/postgres</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5434/postgres</jdbc-url>
       <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.host.port" value="5433" />
+        <property name="com.intellij.clouds.kubernetes.db.host.port" value="5434" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="true" />
         <property name="com.intellij.clouds.kubernetes.db.resource" value="postgres-rw" />
         <property name="com.intellij.clouds.kubernetes.db.context" value="k3s" />
