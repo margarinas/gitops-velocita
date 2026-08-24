@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: news-alert
+  namespace: default
+  labels:
+    app.kubernetes.io/name: news-alert
+data:
+  APP_DEBUG: "false"
+  APP_ENV: "production"
+  APP_LOCALE: "en"
+  APP_NAME: "news-alert"
+  APP_URL: "https://alerts.velocita.lt"
+  AUTORUN_ENABLED: "true"
+  BROADCAST_CONNECTION: "log"
+  CACHE_STORE: "redis"
+  DB_CONNECTION: "pgsql"
+  DB_DATABASE: "news-alert-db"
+  DB_HOST: "postgres-pgbouncer-rw.default"
+  DB_PORT: "5432"
+  DB_USERNAME: "news-alert-db-user"
+  EMBEDDINGS_BASE_URL: "http://news-alert-tei"
+  EMBEDDINGS_DIMENSIONS: "384"
+  EMBEDDINGS_MODEL: "intfloat/multilingual-e5-small"
+  EMBEDDINGS_REVISION: "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+  FILESYSTEM_DISK: "local"
+  LOG_CHANNEL: "stderr"
+  LOG_LEVEL: "info"
+  OPENAI_URL: "https://api.openai.com/v1"
+  PHP_OPCACHE_ENABLE: "1"
+  QUEUE_CONNECTION: "redis"
+  REDIS_CLIENT: "phpredis"
+  REDIS_HOST: "dragonfly.default"
+  REDIS_PORT: "6379"
+  REDIS_QUEUE_RETRY_AFTER: "180"
+  SESSION_DRIVER: "redis"
+  SESSION_LIFETIME: "120"
+  SSL_MODE: "off"
+  BRANDWATCH_API_ENDPOINT: "http://brandwatch:8080/api"
+  BRANDWATCH_HEALTH_ENDPOINT: "http://brandwatch:8080/up"
+  BRANDWATCH_PAGE_LIMIT: "100"
+  RUN_BRANDWATCH_INTEGRATION_TESTS: "false"
+  RUN_OPENAI_INTEGRATION_TESTS: "false"
+  RUN_PIPELINE_INTEGRATION_TESTS: "false"
+  RUN_TEI_INTEGRATION_TESTS: "false"

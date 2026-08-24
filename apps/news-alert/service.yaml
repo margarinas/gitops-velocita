@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: news-alert
+  namespace: default
+  labels:
+    app.kubernetes.io/name: news-alert
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: news-alert
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP

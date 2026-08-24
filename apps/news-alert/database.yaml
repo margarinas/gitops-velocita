@@ -1,0 +1,18 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: news-alert-db
+  namespace: default
+spec:
+  name: news-alert-db
+  owner: news-alert-db-user
+  databaseReclaimPolicy: retain
+  cluster:
+    name: postgres
+  schemas:
+    - name: public
+      owner: news-alert-db-user
+  extensions:
+    - name: vector
+      ensure: present

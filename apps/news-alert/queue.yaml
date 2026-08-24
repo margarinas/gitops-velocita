@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: news-alert-queue
+  namespace: default
+  labels:
+    app.kubernetes.io/name: news-alert-queue
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: news-alert-queue
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: news-alert-queue
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.kubernetes.io/server-usage
+                    operator: DoesNotExist
+      containers:
+        - name: news-alert-queue
+          image: margarinas/news-alert:latest
+          imagePullPolicy: Always
+          command:
+            - php
+            - /var/www/html/artisan
+            - queue:work
+            - --sleep=1
+            - --tries=3
+            - --max-time=3600
+            - --memory=384
+            - --timeout=120
+          envFrom:
+            - configMapRef:
+                name: news-alert
+            - secretRef:
+                name: news-alert
+          livenessProbe:
+            exec:
+              command:
+                - healthcheck-queue
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 768Mi

@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: news-alert
+  namespace: default
+  labels:
+    app.kubernetes.io/name: news-alert
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - alerts.velocita.lt
+      secretName: tls-news-alert
+  rules:
+    - host: alerts.velocita.lt
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: news-alert
+                port:
+                  number: 8080

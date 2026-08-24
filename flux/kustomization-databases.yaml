@@ -6,6 +6,7 @@ metadata:
 spec:
   dependsOn:
     - name: helm
+    - name: dependencies
   interval: 24h0m0s
   path: ./databases
   prune: true

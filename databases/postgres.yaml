@@ -72,6 +72,11 @@ spec:
         login: true
         passwordSecret:
           name: velocita-news-staging-postgres-credentials
+      - name: news-alert-db-user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: news-alert-postgres-credentials
       - name: forgejo-db-user
         ensure: present
         login: true
