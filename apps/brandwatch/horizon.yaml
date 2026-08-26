@@ -1,4 +1,9 @@
 ---
+# Horizon master for the `default` queue only.
+#
+# The `crawl` queue is deliberately NOT served here: this deployment is multi-replica,
+# and Horizon's maxProcesses is per-pod, so crawl concurrency could not be bounded.
+# Crawl jobs run on the single-replica brandwatch-horizon-crawl deployment instead.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,7 +37,7 @@ spec:
           command:
             - /bin/sh
             - -c
-            - "php artisan horizon"
+            - "php artisan horizon --environment=production"
           envFrom:
             - secretRef:
                 name: brandwatch

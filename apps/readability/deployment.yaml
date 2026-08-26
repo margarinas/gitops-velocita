@@ -37,6 +37,11 @@ spec:
                     operator: In
                     values:
                       - readability
+      # PID 1 is tini (see docker/readability/prod.Dockerfile), which forwards SIGTERM to
+      # the whole process group and reaps orphaned Chromium children. The service closes
+      # its browsers and force-exits within ~8s, well inside this window.
+      terminationGracePeriodSeconds: 30
+
       containers:
         - name: readability
 
@@ -50,10 +55,41 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+
+          # Bun installs dependencies before it starts listening, so hold off the other
+          # probes until the server is actually up.
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+            failureThreshold: 24
+
+          # Keeps a pod out of the Service until it can serve. With maxSurge: 0 the
+          # rollout would otherwise send traffic to a pod that has not bound its port.
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          # Deliberately slack: /health is served off the same event loop as extraction,
+          # so it can be briefly slow under load. This is here to restart a genuinely
+          # wedged pod, not to react to a busy one.
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 10
+            failureThreshold: 6
+
           resources:
             requests:
               cpu: 2000m
               memory: 4Gi
             limits:
               cpu: 3700m
-              memory: 7000Mi
+              memory: 4Gi
