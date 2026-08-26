@@ -1,0 +1,99 @@
+---
+# Browser-free HTML extraction.
+#
+# Runs the same @mozilla/readability + JSDOM code as the readability service (the source
+# file is shared, not copied), so its output is byte-identical -- verified against four
+# live article pages before cutover. The split exists because JSDOM parsing is
+# synchronous: while it ran inside the readability service it blocked that process's
+# event loop, stalling CDP traffic for in-flight Chromium extractions.
+#
+# Consequences worth knowing:
+#   * No Chromium, so no `server-usage=readability` affinity and no 6Gi request. This
+#     schedules anywhere with spare CPU.
+#   * Bun is single-threaded and parsing is synchronous, so CONCURRENCY == REPLICAS.
+#     Measured ~0.22s per article => ~4.5 articles/sec per replica. Size with
+#     `replicas ~= target_jobs_per_sec * 0.22`.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: extractor
+  namespace: default
+  labels:
+    app.kubernetes.io/name: extractor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: extractor
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: extractor
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      terminationGracePeriodSeconds: 30
+      # Spread across nodes where possible; a single node losing all extraction
+      # capacity would stall every non-browser portal at once.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: extractor
+      containers:
+        - name: extractor
+
+          image: "margarinas/extractor:latest"
+          imagePullPolicy: Always
+
+          env:
+            # Guards the event loop: one oversized document would otherwise block this
+            # replica for as long as it takes to parse. The largest page measured across
+            # these portals was 459KB, so 8MB is generous.
+            - name: EXTRACTOR_MAX_HTML_BYTES
+              value: "8000000"
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 3
+            failureThreshold: 20
+
+          # Unlike the readability service this probe can be strict: /health is only
+          # ever delayed here by a parse in flight (~0.2s), not by a saturated browser.
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+          resources:
+            requests:
+              cpu: 300m
+              memory: 384Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi

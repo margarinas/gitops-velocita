@@ -1,0 +1,14 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: extractor
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: helm
+  interval: 1h0m0s
+  path: ./apps/extractor
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
