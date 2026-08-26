@@ -8,13 +8,21 @@ metadata:
     app.kubernetes.io/name: readability
 data:
   READABILITY_BROWSER_OPERATION_TIMEOUT_MS: "30000"
-  # Pages a pooled browser serves before it is recycled. Chrome's memory grows with
-  # every page and is only truly reclaimed when the browser process exits, so this is
-  # the main defence against OOMKills. The VPA measured ~9GB at the original value of
-  # 75 -- more than a cx33 node can give one pod -- and 20 still OOMKilled against the
-  # 4Gi limit on real news pages (ads/video are far heavier than the article itself).
-  # Costs a browser relaunch (~1-2s) every 5 pages.
-  READABILITY_BROWSER_MAX_PAGES: "5"
+  # Pages a pooled browser serves before it is recycled. This trades two failure modes
+  # against each other and neither end is safe:
+  #
+  #   too high -> Chrome's memory grows with every page and is only truly reclaimed when
+  #               the process exits. At the original 75 the VPA measured ~9GB, more than
+  #               a cx33 node can give one pod, and pods OOMKilled.
+  #   too low  -> every recycle costs a cold browser launch, measured at 20-30s, and
+  #               that lands INSIDE the 30s request deadline below. At 5 roughly one
+  #               request in five timed out (observed 32.2s vs 3.6s on back-to-back
+  #               requests for the same URL).
+  #
+  # 25 sits between them: memory stayed ~1.5-2.1Gi against the 6Gi limit, while a cold
+  # launch is amortised over 25 pages instead of 5. The real fix is to pre-warm the
+  # replacement browser off the request path, which would remove the low-end penalty.
+  READABILITY_BROWSER_MAX_PAGES: "25"
   # Hard server-side deadline per extraction request. Must stay BELOW the Laravel
   # client timeout in PortalCrawlService::readabilityClient() (35s) so the browser is
   # torn down here rather than abandoned by a client that gave up first.
