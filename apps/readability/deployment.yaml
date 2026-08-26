@@ -67,24 +67,29 @@ spec:
 
           # Keeps a pod out of the Service until it can serve. With maxSurge: 0 the
           # rollout would otherwise send traffic to a pod that has not bound its port.
+          #
+          # Tolerant on purpose: this pod runs at 100% of its CPU limit under load, and
+          # a CFS-throttled container can miss a short deadline on /health while being
+          # perfectly healthy. Only sustained unresponsiveness (~2min) sheds traffic.
           readinessProbe:
             httpGet:
               path: /health
               port: http
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-
-          # Deliberately slack: /health is served off the same event loop as extraction,
-          # so it can be briefly slow under load. This is here to restart a genuinely
-          # wedged pod, not to react to a busy one.
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-            periodSeconds: 20
+            periodSeconds: 15
             timeoutSeconds: 10
-            failureThreshold: 6
+            failureThreshold: 8
+
+          # NO livenessProbe, deliberately.
+          #
+          # /health is served off the same event loop as extraction, and this container
+          # saturates its CPU limit during a crawl. A liveness probe there restarts busy
+          # pods, killing in-flight extractions and deepening the backlog it is reacting
+          # to -- observed doing exactly that on 2026-08-26.
+          #
+          # A wedged *browser* no longer wedges the *process*: the 30s request deadline
+          # tears the page and browser down (src/server.ts), and tini reaps orphans. So
+          # there is little left for liveness to catch, and a restart loop is worse than
+          # a slow pod.
 
           resources:
             requests:

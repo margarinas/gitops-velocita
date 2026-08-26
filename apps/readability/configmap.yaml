@@ -7,9 +7,12 @@ metadata:
   labels:
     app.kubernetes.io/name: readability
 data:
-  READABILITY_MAX_CONCURRENCY: "1"
-  READABILITY_MAX_HTML_BYTES: "8000000"
   READABILITY_BROWSER_OPERATION_TIMEOUT_MS: "30000"
+  # Pages a pooled browser serves before it is recycled. Chrome's memory grows with
+  # every page, and the VPA measured ~9GB at the previous value of 75 -- more than a
+  # cx33 node can give one pod. Recycling sooner trades a browser relaunch every 20
+  # pages for a much lower steady-state footprint.
+  READABILITY_BROWSER_MAX_PAGES: "20"
   # Hard server-side deadline per extraction request. Must stay BELOW the Laravel
   # client timeout in PortalCrawlService::readabilityClient() (35s) so the browser is
   # torn down here rather than abandoned by a client that gave up first.
