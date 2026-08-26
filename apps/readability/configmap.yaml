@@ -7,7 +7,16 @@ metadata:
   labels:
     app.kubernetes.io/name: readability
 data:
-  READABILITY_BROWSER_OPERATION_TIMEOUT_MS: "30000"
+  # Budget for one browser operation. 45s so two 18s navigation attempts plus
+  # post-navigation settling fit inside it. Every layer above must be strictly larger:
+  # client 50s -> job 60s -> worker 90s -> redis retry_after 180s. Pinned by
+  # tests/Feature/CrawlTimeoutChainTest.php.
+  READABILITY_BROWSER_OPERATION_TIMEOUT_MS: "45000"
+  # How long a single page.goto may take. Measured: delfi.lt, the largest portal, needs
+  # 10-22s to reach domcontentloaded in a real browser and succeeds every time when
+  # allowed to finish -- identical with and without the mobile proxy, so it is page
+  # weight, not network. The previous 9s failed it 100% of the time.
+  READABILITY_NAVIGATION_TIMEOUT_MS: "18000"
   # Pages a pooled browser serves before it is recycled. This trades two failure modes
   # against each other and neither end is safe:
   #
@@ -15,18 +24,18 @@ data:
   #               the process exits. At the original 75 the VPA measured ~9GB, more than
   #               a cx33 node can give one pod, and pods OOMKilled.
   #   too low  -> every recycle costs a cold browser launch, measured at 20-30s, and
-  #               that lands INSIDE the 30s request deadline below. At 5 roughly one
-  #               request in five timed out (observed 32.2s vs 3.6s on back-to-back
-  #               requests for the same URL).
+  #               that lands INSIDE the request deadline below. At 5 roughly one request
+  #               in five timed out (observed 32.2s vs 3.6s on back-to-back requests for
+  #               the same URL).
   #
   # 25 sits between them: memory stayed ~1.5-2.1Gi against the 6Gi limit, while a cold
   # launch is amortised over 25 pages instead of 5. The real fix is to pre-warm the
   # replacement browser off the request path, which would remove the low-end penalty.
   READABILITY_BROWSER_MAX_PAGES: "25"
   # Hard server-side deadline per extraction request. Must stay BELOW the Laravel
-  # client timeout in PortalCrawlService::readabilityClient() (35s) so the browser is
+  # client timeout in PortalCrawlService::readabilityClient() (50s) so the browser is
   # torn down here rather than abandoned by a client that gave up first.
-  READABILITY_REQUEST_DEADLINE_MS: "30000"
+  READABILITY_REQUEST_DEADLINE_MS: "45000"
   READABILITY_MOBILE_PROXY_URL: "http://paulius0NXHg:Jaux2mXey3@78.46.100.233:45023"
   READABILITY_BROWSER_STARTUP_COOKIES: |
     [
