@@ -91,10 +91,19 @@ spec:
           # there is little left for liveness to catch, and a restart loop is worse than
           # a slow pod.
 
+          # Memory request == limit on purpose. Chrome's footprint on real news pages
+          # (ads and video, not the article) blew through the previous 4Gi and put both
+          # pods into an OOMKill CrashLoopBackOff. Reserving the full 6Gi means the pod
+          # can never exceed its request, so it is not an eviction candidate and the
+          # scheduler will not overcommit the node underneath it.
+          #
+          # 6Gi is the practical ceiling on the current cx33 nodes (6.98Gi allocatable,
+          # leaving ~1Gi for everything else). The VPA target is ~9.6GB, so this is
+          # relief rather than headroom -- cx43 nodes are the real fix.
           resources:
             requests:
               cpu: 2000m
-              memory: 4Gi
+              memory: 6Gi
             limits:
               cpu: 3700m
-              memory: 4Gi
+              memory: 6Gi
