@@ -54,6 +54,21 @@ spec:
             - configMapRef:
                 name: brandwatch
                 optional: false
+          env:
+            # ONE concurrent browser job cluster-wide.
+            #
+            # Measured on the readability pods (3700m CPU limit): delfi.lt takes 16-20s
+            # to load even with the pod to itself. Two crawl workers can land on the same
+            # readability replica, and the second then queues behind the first for a
+            # combined ~40s against the 45s request deadline -- about 5s of margin, which
+            # variance eats. At 1 there is no queuing and delfi finishes in 16-20s with
+            # ~25s to spare.
+            #
+            # This costs browser throughput, which is currently free: the crawl queue
+            # sits empty and only 14 of 68 portals need a browser at all. Raise it only
+            # alongside more readability replicas.
+            - name: HORIZON_CRAWL_MAX_PROCESSES
+              value: "1"
           resources:
             requests:
               memory: "256Mi"

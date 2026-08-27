@@ -17,6 +17,12 @@ data:
   # allowed to finish -- identical with and without the mobile proxy, so it is page
   # weight, not network. The previous 9s failed it 100% of the time.
   READABILITY_NAVIGATION_TIMEOUT_MS: "18000"
+  # Concurrent page loads per replica. Loads are CPU-bound and contend for the
+  # container's CPU limit, so latency degraded super-linearly: on delfi.lt 1 load took
+  # 11.3s, 2 took 22.7s, and 3 took 52.5s and blew the deadline. Serialising made 3
+  # loads take 35s with every one succeeding. This is what the old (never implemented)
+  # READABILITY_MAX_CONCURRENCY key was reaching for. 0 disables the limit.
+  READABILITY_MAX_CONCURRENT_PAGES: "1"
   # Pages a pooled browser serves before it is recycled. This trades two failure modes
   # against each other and neither end is safe:
   #
