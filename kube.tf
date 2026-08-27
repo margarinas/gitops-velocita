@@ -991,6 +991,26 @@ module "kube-hetzner" {
       port            = "45023",
       source_ips      = [] # Won't be used for this rule
       destination_ips = ["0.0.0.0/0", "::/0"]
+    },
+    {
+      # Rotating proxy-seller modem (195.123.208.35), HTTP port. Outbound is
+      # allow-listed per port here, so the cluster cannot reach a new proxy port until
+      # it is added. Chrome cannot authenticate to a SOCKS5 proxy, so the browser path
+      # must use this HTTP port; 52201 below is for curl/PHP only.
+      description     = "Allow rotating proxy traffic (http)",
+      direction       = "out",
+      protocol        = "tcp",
+      port            = "42201",
+      source_ips      = [] # Won't be used for this rule
+      destination_ips = ["0.0.0.0/0", "::/0"]
+    },
+    {
+      description     = "Allow rotating proxy traffic (socks5)",
+      direction       = "out",
+      protocol        = "tcp",
+      port            = "52201",
+      source_ips      = [] # Won't be used for this rule
+      destination_ips = ["0.0.0.0/0", "::/0"]
     }
   ]
 
