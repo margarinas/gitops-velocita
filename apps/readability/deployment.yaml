@@ -50,6 +50,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: readability
+            - secretRef:
+                name: readability
+                optional: false
 
           ports:
             - name: http

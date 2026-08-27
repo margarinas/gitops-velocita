@@ -9,6 +9,12 @@ spec:
   interval: 1h0m0s
   path: ./apps/readability
   prune: true
+  # Required for apps/readability/secret.sops.yaml. Without it Flux applies the
+  # encrypted blob verbatim and the pods get ciphertext as their env values.
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   sourceRef:
     kind: GitRepository
     name: flux-system
