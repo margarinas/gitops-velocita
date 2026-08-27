@@ -68,7 +68,7 @@ spec:
             # sits empty and only 14 of 68 portals need a browser at all. Raise it only
             # alongside more readability replicas.
             - name: HORIZON_CRAWL_MAX_PROCESSES
-              value: "1"
+              value: "2"
           resources:
             requests:
               memory: "256Mi"
