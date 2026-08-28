@@ -34,9 +34,11 @@ spec:
           value: readability
           effect: NoSchedule
 
-      # Horizon traps SIGTERM and drains in-flight jobs. A crawl job can be mid-request
-      # against readability for up to the 45s job timeout, so allow it to finish.
-      terminationGracePeriodSeconds: 90
+      # Horizon traps SIGTERM and drains in-flight jobs, so this must outlast the
+      # longest job. Rotating-proxy portals rotate the exit IP inside the job and get a
+      # 120s timeout, so 90s here would SIGKILL them mid-flight on every deploy -- and
+      # this deployment uses Recreate, so every deploy terminates the only pod.
+      terminationGracePeriodSeconds: 150
 
       containers:
         - name: brandwatch-horizon-crawl
