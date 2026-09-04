@@ -71,7 +71,7 @@ spec:
         server:
           DOMAIN: git.motorsniper.lt
           ROOT_URL: https://git.motorsniper.lt/
-          SSH_DOMAIN: git.motorsniper.lt
+          SSH_DOMAIN: ssh.git.motorsniper.lt
           SSH_PORT: 2222
           SSH_LISTEN_PORT: 2222
         service:
