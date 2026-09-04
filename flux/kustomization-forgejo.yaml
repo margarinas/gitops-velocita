@@ -7,6 +7,7 @@ spec:
   dependsOn:
     - name: databases
     - name: helm
+    - name: infrastructure
   interval: 1h0m0s
   path: ./apps/forgejo
   prune: true
