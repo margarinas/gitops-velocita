@@ -991,6 +991,16 @@ module "kube-hetzner" {
       destination_ips = ["0.0.0.0/0", "::/0"]
     },
     {
+      # Readability's mobile proxy (78.46.100.233) moved from 45023, which now answers
+      # 407, to this port. Without the rule the browser's listing fetches time out.
+      description     = "Allow readability mobile proxy traffic",
+      direction       = "out",
+      protocol        = "tcp",
+      port            = "47307",
+      source_ips      = [] # Won't be used for this rule
+      destination_ips = ["0.0.0.0/0", "::/0"]
+    },
+    {
       # Rotating proxy-seller modem (195.123.208.35), HTTP port. Outbound is
       # allow-listed per port here, so the cluster cannot reach a new proxy port until
       # it is added. Chrome cannot authenticate to a SOCKS5 proxy, so the browser path
