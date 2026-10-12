@@ -43,3 +43,4 @@ data:
   BACKBLAZE_ENDPOINT: "https://s3.eu-central-003.backblazeb2.com"
   BACKBLAZE_REGION: "eu-central-003"
   BACKBLAZE_URL: "https://s3.eu-central-003.backblazeb2.com/brandwatch-prod"
+  SCRAPER_API_TIER: "premium"
