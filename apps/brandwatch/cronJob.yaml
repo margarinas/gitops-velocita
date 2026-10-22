@@ -22,7 +22,7 @@ spec:
           containers:
             - name: brandwatch-cron
               image: "margarinas/brandwatch:latest"
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               command:
                 - /bin/sh
                 - -c

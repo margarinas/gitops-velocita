@@ -23,7 +23,7 @@ spec:
         - name: velocita-horizon
 
           image: "margarinas/velocita:latest"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           command:
             - /bin/sh
             - -c

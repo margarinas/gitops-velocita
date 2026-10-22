@@ -22,7 +22,7 @@ spec:
           containers:
             - name: velocita-cron
               image: "margarinas/velocita:latest"
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               command:
                 - /bin/sh
                 - -c
