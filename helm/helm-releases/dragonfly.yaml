@@ -8,7 +8,7 @@ spec:
   releaseName: dragonfly-operator
   chart:
     spec:
-      version: v1.6.1
+      version: v1.7.1
       chart: dragonfly-operator
       sourceRef:
         kind: HelmRepository

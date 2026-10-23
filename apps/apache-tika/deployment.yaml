@@ -19,7 +19,7 @@ spec:
       containers:
         - name: apache-tika
           image: "apache/tika:latest"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           
           ports:
             - name: http

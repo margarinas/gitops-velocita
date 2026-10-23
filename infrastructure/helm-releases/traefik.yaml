@@ -36,5 +36,5 @@ spec:
       dashboard:
         enabled: true
     providers:
-      kubernetesIngressNginx:
+      kubernetesIngressNGINX:
         enabled: true
