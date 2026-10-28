@@ -44,6 +44,8 @@ spec:
                     name: news-alert
                 - secretRef:
                     name: news-alert
+                - secretRef:
+                    name: news-alert-storage
               resources:
                 requests:
                   cpu: 50m

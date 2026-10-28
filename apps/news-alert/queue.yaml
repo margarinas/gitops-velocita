@@ -45,6 +45,8 @@ spec:
                 name: news-alert
             - secretRef:
                 name: news-alert
+            - secretRef:
+                name: news-alert-storage
           livenessProbe:
             exec:
               command:

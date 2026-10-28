@@ -36,6 +36,8 @@ spec:
                 name: news-alert
             - secretRef:
                 name: news-alert
+            - secretRef:
+                name: news-alert-storage
           ports:
             - name: http
               containerPort: 8080
