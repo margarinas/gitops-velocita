@@ -13,10 +13,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - "velocita.motorsniper.lt"
+        - "app.velocita.lt"
       secretName: tls-velocita
   rules:
-    - host: "velocita.motorsniper.lt"
+    - host: "app.velocita.lt"
       http:
         paths:
           - path: "/"
