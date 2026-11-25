@@ -44,6 +44,8 @@ spec:
                     name: sports
                 - secretRef:
                     name: sports
+                - secretRef:
+                    name: sports-api-sports
               resources:
                 requests:
                   cpu: 50m
