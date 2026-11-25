@@ -42,6 +42,8 @@ spec:
                 name: sports
             - secretRef:
                 name: sports-api-sports
+            - secretRef:
+                name: sports-ai-providers
           livenessProbe:
             exec:
               command:

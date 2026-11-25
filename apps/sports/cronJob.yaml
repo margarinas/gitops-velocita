@@ -46,6 +46,8 @@ spec:
                     name: sports
                 - secretRef:
                     name: sports-api-sports
+                - secretRef:
+                    name: sports-ai-providers
               resources:
                 requests:
                   cpu: 50m

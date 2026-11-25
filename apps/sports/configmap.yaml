@@ -32,7 +32,7 @@ data:
   REDIS_HOST: "dragonfly.default"
   REDIS_PORT: "6379"
   REDIS_PREFIX: "velocita_sports_database_"
-  REDIS_QUEUE_RETRY_AFTER: "210"
+  REDIS_QUEUE_RETRY_AFTER: "300"
   SESSION_DRIVER: "redis"
   SESSION_LIFETIME: "120"
   SSL_MODE: "off"
