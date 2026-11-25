@@ -1,0 +1,15 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: sports-db
+  namespace: default
+spec:
+  name: sports-db
+  owner: sports-db-user
+  databaseReclaimPolicy: retain
+  cluster:
+    name: postgres
+  schemas:
+    - name: public
+      owner: sports-db-user

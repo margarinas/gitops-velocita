@@ -82,6 +82,11 @@ spec:
         login: true
         passwordSecret:
           name: forgejo-postgres-credentials
+      - name: sports-db-user
+        ensure: present
+        login: true
+        passwordSecret:
+          name: sports-postgres-credentials
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup

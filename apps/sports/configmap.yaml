@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sports
+  namespace: default
+  labels:
+    app.kubernetes.io/name: sports
+data:
+  APP_DEBUG: "false"
+  APP_ENV: "production"
+  APP_LOCALE: "lt"
+  APP_NAME: "Velocita Sports"
+  APP_URL: "https://sports.velocita.lt"
+  AUTORUN_ENABLED: "true"
+  BROADCAST_CONNECTION: "log"
+  CACHE_STORE: "redis"
+  DB_CONNECTION: "pgsql"
+  DB_DATABASE: "sports-db"
+  DB_HOST: "postgres-pgbouncer-rw.default"
+  DB_PORT: "5432"
+  DB_USERNAME: "sports-db-user"
+  FILESYSTEM_DISK: "local"
+  HORIZON_NAME: "Velocita Sports"
+  HORIZON_PREFIX: "velocita_sports_horizon:"
+  LOG_CHANNEL: "stderr"
+  LOG_LEVEL: "info"
+  OPENAI_URL: "https://api.openai.com/v1"
+  PHP_OPCACHE_ENABLE: "1"
+  QUEUE_CONNECTION: "redis"
+  REDIS_CLIENT: "phpredis"
+  REDIS_HOST: "dragonfly.default"
+  REDIS_PORT: "6379"
+  REDIS_PREFIX: "velocita_sports_database_"
+  REDIS_QUEUE_RETRY_AFTER: "210"
+  SESSION_DRIVER: "redis"
+  SESSION_LIFETIME: "120"
+  SSL_MODE: "off"

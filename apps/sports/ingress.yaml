@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sports
+  namespace: default
+  labels:
+    app.kubernetes.io/name: sports
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - sports.velocita.lt
+      secretName: tls-sports
+  rules:
+    - host: sports.velocita.lt
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sports
+                port:
+                  number: 8080

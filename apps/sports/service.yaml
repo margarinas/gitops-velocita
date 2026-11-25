@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sports
+  namespace: default
+  labels:
+    app.kubernetes.io/name: sports
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: sports
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP
